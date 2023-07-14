@@ -1,0 +1,443 @@
+- content_for :styles do
+  :css
+    .twitter-typeahead {
+      width: 100%;
+      display: table !important;
+    }
+
+    .twitter-typeahead .form-control {
+      margin: 0 !important;
+    }
+
+    .tt-hint,
+    .tt-input {
+      color: #999;
+      font-size: 14px;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.428571429;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+    .tt-hint[disabled] {
+      background-color: #fff !important;
+    }
+
+
+    .tt-dropdown-menu {
+      min-width: 160px;
+      margin-top: 2px;
+      padding: 5px 0;
+      background-color: #fff;
+      border: 1px solid #ebebeb;
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+      width: 100%;
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+    .tt-dropdown-menu h3 {
+      margin: 5px 0;
+      padding: 6px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-open .tt-dropdown-menu {
+      z-index: 10055 !important;
+    }
+
+    .tt-suggestion {
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .tt-suggestion.tt-cursor {
+      cursor: pointer;
+      background-color: #eee;
+
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+
+
+= form_for @order, url: validate_path do |f|
+  .body-container
+    .breadcrumb
+      .container
+        .breadcrumb-inner
+          %ul.list-inline.list-unstyled
+            %li
+              %a{:href => "/"} Home
+            %li.active Kasse
+
+    .checkout-container
+      .container
+        .row
+          .col-md-3.checkout-progress-container
+            .checkout-progress
+              %h2 Kasse
+              %ul.list-unstyled
+                %li
+                  %div Rechnungsdetails
+                %li
+                  %div Lieferadresse
+                %li
+                  %div Bezahlung und AGB
+
+          .col-md-9.checkout-boxes-container
+            = render 'shared/error_messages', object: @order
+            #missingSchoolTop.alert.alert-success.hide
+              %strong Schule fehlt in der Liste. Bitte tragen Sie Ihre Schuladresse als Bestellnotiz ein.
+            #accordion.panel-group.checkout-boxes
+              .panel.panel-default.checkout-box{"style" => 'overflow:visible;'}
+                .panel-heading
+                  %h2.panel-title
+                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo"}
+                      %span.step 01
+                      Rechnungsdetails
+                #collapseTwo.panel-collapse.collapse.content.in
+                  .panel-body
+                    %p.text Bitte geben Sie Ihre Rechnungsdetails im folgenden Formular an.
+                    %h4.title Rechnungsadresse
+                    .form-container.billing-form
+                      .cnt-form{:role => "form"}
+                        .row.field-row.form-group
+                          .col-xs-12.col-sm-6
+                            = f.label :given_name do
+                              Vorname
+                              %span.astk *
+                            = f.text_field :given_name, class: 'form-control txt'
+                          .col-xs-12.col-sm-6
+                            = f.label :family_name do
+                              Nachname
+                              %span.astk *
+                            = f.text_field :family_name, class: 'form-control txt'
+
+                        = f.fields_for :invoice_address do |invoice_address_form|
+                          .row.field-row.form-group
+                            .col-xs-12.col-sm-6
+                         - content_for :styles do
+  :css
+    .twitter-typeahead {
+      width: 100%;
+      display: table !important;
+    }
+
+    .twitter-typeahead .form-control {
+      margin: 0 !important;
+    }
+
+    .tt-hint,
+    .tt-input {
+      color: #999;
+      font-size: 14px;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.428571429;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+    .tt-hint[disabled] {
+      background-color: #fff !important;
+    }
+
+
+    .tt-dropdown-menu {
+      min-width: 160px;
+      margin-top: 2px;
+      padding: 5px 0;
+      background-color: #fff;
+      border: 1px solid #ebebeb;
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+      width: 100%;
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+    .tt-dropdown-menu h3 {
+      margin: 5px 0;
+      padding: 6px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-open .tt-dropdown-menu {
+      z-index: 10055 !important;
+    }
+
+    .tt-suggestion {
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .tt-suggestion.tt-cursor {
+      cursor: pointer;
+      background-color: #eee;
+
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+
+
+= form_for @order, url: validate_path do |f|
+  .body-container
+    .breadcrumb
+      .container
+        .breadcrumb-inner
+          %ul.list-inline.list-unstyled
+            %li
+              %a{:href => "/"} Home
+            %li.active Kasse
+
+    .checkout-container
+      .container
+        .row
+          .col-md-3.checkout-progress-container
+            .checkout-progress
+              %h2 Kasse
+              %ul.list-unstyled
+                %li
+                  %div Rechnungsdetails
+                %li
+                  %div Lieferadresse
+                %li
+                  %div Bezahlung und AGB
+
+          .col-md-9.checkout-boxes-container
+            = render 'shared/error_messages', object: @order
+            #missingSchoolTop.alert.alert-success.hide
+              %strong Schule fehlt in der Liste. Bitte tragen Sie Ihre Schuladresse als Bestellnotiz ein.
+            #accordion.panel-group.checkout-boxes
+              .panel.panel-default.checkout-box{"style" => 'overflow:visible;'}
+                .panel-heading
+                  %h2.panel-title
+                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo"}
+                      %span.step 01
+                      Rechnungsdetails
+                #collapseTwo.panel-collapse.collapse.content.in
+                  .panel-body
+                    %p.text Bitte geben Sie Ihre Rechnungsdetails im folgenden Formular an.
+                    %h4.title Rechnungsadresse
+                    .form-container.billing-form
+                      .cnt-form{:role => "form"}
+                        .row.field-row.form-group
+                          .col-xs-12.col-sm-6
+                            = f.label :given_name do
+                              Vorname
+                              %span.astk *
+                            = f.text_field :given_name, class: 'form-control txt'
+                          .col-xs-12.col-sm-6
+                            = f.label :family_name do
+                              Nachname
+                              %span.astk *
+                            = f.text_field :family_name, class: 'form-control txt'
+
+                        = f.fields_for :invoice_address do |invoice_address_form|
+                          .row.field-row.form-group
+                            .col-xs-12.col-sm-6
+                              = invoice_address_form.label :street_address do
+                                Address
+                                %span.astk *
+                              = invoice_address_form.text_field :street_address, class: 'form-control txt'
+
+                            .col-xs-12.col-sm-6
+                              = invoice_address_form.label :address_locality do
+                                Stadt
+                                %span.astk *
+                              = invoice_address_form.text_field :address_locality, class: 'form-control txt'
+
+                          .row.field-row.form-group
+                            .col-xs-12.col-sm-6
+                              = invoice_address_form.label :postal_code do
+                                Postleitzahl
+                                %span.astk *
+                              = invoice_address_form.text_field :postal_code, class: 'form-control txt'
+
+                            .col-xs-12.col-sm-6
+                              = f.label :email do
+                                Email
+                                %span.astk *
+                              = f.text_field :email, class: 'form-control txt'
+
+
+
+                          .row.field-row.form-group
+                            .col-xs-12.col-sm-6
+                              = f.label :telephone do
+                                Telefon
+                              = f.text_field :telephone, class: 'form-control txt'
+
+                            .col-xs-12.col-sm-6
+                              = f.label :school_id do
+                                Schule
+                                %span.astk *
+                              = f.hidden_field :school_id
+                              - if f.object.school_id
+                                :javascript
+                                  window.INITIAL_SCHOOL = #{raw School.selectedSchool(f.object.school_id).to_json.gsub("</", "<\\/")};
+                              #scrollable-dropdown-menu
+                                %input.form-control.txt{:name => "school"}
+                        -# .action
+                          %button.btn.btn-normal.btn-blue.btn-uppercase
+                            %i.left.fa.fa-file-text>
+                            Speichern
+
+                        %p.cart_navigation.clearfix
+                          %a.btn.btn-normal.btn-blue.btn-uppercase{:href => "/", :title => "Previous", :class => "checkout_back_link"}
+                            %i.left.fa.fa-chevron-left
+                            Einkauf Fortsetzen
+                          %button.btn.btn-normal.btn-blue.btn-uppercase.pull-right{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree"}
+                            %span
+                              Weiter
+                              %i.fa.fa-chevron-right.right
+
+              .panel.panel-default.checkout-box
+                .panel-heading
+                  %h2.panel-title
+                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseThree"}
+                      %span.step 02
+                      Lieferadresse
+                #collapseThree.panel-collapse.collapse.content
+                  .panel-body
+                    .form-container
+                      .addresses.clearfix
+
+                        #missingSchoolDown.alert.alert-success.hide
+                          %strong Bitte tragen Sie Ihre Schuladresse als Bestellnotiz ein.
+                        .row
+                          .col-xs-12.col-sm-6
+                            .radio
+                              %label
+                                %input(type="radio" class="radio" name="order[deliver_to_school]" id="deliver_to_invoice" value="false" checked="!@order.deliver_to_school")
+                                Bücher an die Rechnungsadresse senden
+                            .radio
+                              %label
+                                = f.radio_button :deliver_to_school, "true", class: "radio"
+                                Bücher an die Schuladresse senden
+
+                        .row
+                          -# .col-xs-12.col-sm-6
+                            %ul#address_invoice.list-unstyled.address.item.box
+                              %li.address_title
+                                %h3.page-subheading Ihre Rechnungsadresse
+                              %li.address_firstname.address_lastname Björn Schmidtke
+                              %li.address_address1 Gustav-Jourdan-Weg 10
+                              %li.address_postcode.address_city 72534 Hayingen
+
+                          .col-xs-12.col-sm-8
+                            %ul#address_school.list-unstyled.address.alternate_item.box
+                              %li.address_title
+                                %h3.page-subheading Ihre Schuladresse
+                              %li.address_firstname.address_lastname
+                                %label
+                                  Klasse (damit das Paket in der Schule richtig weitergeleitet werden kann)
+                                = f.text_field :recipient, class: 'form-control txt', style:"background: white;", placeholder:"(bitte angeben)", value: @cart.recipient
+
+                              %li.address_company#s_school_name Bitte wählen Sie zuerst eine Schule aus
+                              %li.address_address1#s_school_address (im 1. Schritt)
+                              %li.address_postcode.address_city#s_school_location
+                        #ordermsg.form-group
+                          %label{:for => "notes"} Bestellnotizen (zum Beispiel Hinweise zur Lieferung)
+                          = f.text_area :notes, value: @cart.notes, id: 'notes', class: 'form-control', rows: '6', cols: '60'
+
+                      %p.cart_navigation.clearfix
+                        %a.btn.btn-normal.btn-blue.btn-uppercase{:href => "/", :title => "Previous", :class => "checkout_back_link"}
+                          %i.left.fa.fa-chevron-left
+                          Einkauf Fortsetzen
+                        %button.btn.btn-normal.btn-blue.btn-uppercase.pull-right{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseFour"}
+                          %span
+                            Weiter
+                            %i.fa.fa-chevron-right.right
+
+              .panel.panel-default.checkout-box
+                .panel-heading
+                  %h2.panel-title
+                    %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseFour"}
+                      %span.step 03
+                      Bezahlung und AGB
+
+                #collapseFour.panel-collapse.collapse.content
+                  .panel-body
+                    .form-container
+                      #form{:name => "carrier_area"}
+                        .order_carrier_content.box
+                          .delivery_options_address
+                            %p.carrier_title
+                              Zahlungsart
+                            .delivery_options
+                              .delivery_option.item
+                                %div
+                                  %table.resume.table.table-bordered
+                                    %tbody
+                                      %tr
+
+                                        %td.delivery_option_radio
+                                          .radio
+                                            %span.checked
+                                              %input.delivery_option_radio{:checked => "checked", :type => "radio"}
+
+                                        %td
+                                          %strong Bezahlung auf Rechnung
+                                          \- bequem nach Erhalt der Ware.
+
+                                        %td.delivery_option_price
+                                          .delivery_option_price
+                                            kostenlos
+
+                          %p.carrier_title Bedingungen
+                          .checkbox
+                            #uniform-cgv.checker
+                              %span
+                                = f.check_box :return_policy_read, { checked: false, id: 'widerruf' }
+                            %label{:for => "widerruf"} Gelesen und zur Kenntnis genommen:
+                            %a{:href => "/pages/widerruf", :target => "_blank"} Widerrufsbelehrung
+                          .checkbox
+                            #uniform-cgv.checker
+                              %span
+                                = f.check_box :terms_and_conditions_accepted, { checked: false, id: 'agb' }
+                            %label{:for => "agb"} Ich habe folgende Bedingungen gelesen und bestätige diese hiermit:
+                            %a{:href => "/pages/agb", :target => "_blank"} Liefer- und Zahlungsbedingungen (AGB)
+
+                        %p.cart_navigation.clearfix
+                          %a.btn.btn-normal.btn-blue.btn-uppercase{:href => "/", :title => "Previous", :class => "checkout_back_link"}
+                            %i.left.fa.fa-chevron-left
+                            Einkauf Fortsetzen
+                          %button.btn.btn-normal.btn-blue.btn-uppercase.pull-right(type="submit")
+                            %span
+                              Weiter
+                              %i.fa.fa-chevron-right.right
+
+- content_for :scripts do
+  %script{:src => "/assets/js/typeahead.jquery.min.js"}
+  %script{:src => "/assets/js/lodash.underscore.min.js"}
+  %script{:src => "/assets/js/typeahead.js"}
+
+  :javascript
+    CheckoutSave.path = "#{checkout_save_path}";
+
+  :coffee
+    schools = #{raw School.json.to_json.gsub("</", "<\\/")}
+    $(TypeaheadInit('school', schools, 'order_school_id'))

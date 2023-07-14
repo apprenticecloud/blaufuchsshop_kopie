@@ -1,0 +1,27 @@
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+###
+production:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  database: blaufuchs_production

@@ -1,0 +1,43 @@
+.modal.fade.slide-up(id="#{modal_id}Modal" aria-hidden="true" role="dialog" tabindex="-1")
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          %button.close(aria-hidden="true" data-dismiss="modal" type="button")
+            %i.pg-close.fs-14
+          %h3
+            = modal_type_title
+            exportieren
+        .modal-body
+          .row
+            .col-.modal.fade.slide-up(id="#{modal_id}Modal" aria-hidden="true" role="dialog" tabindex="-1")
+  .modal-dialog
+    .modal-content-wrapper
+      .modal-content
+        .modal-header.clearfix.text-left
+          %button.close(aria-hidden="true" data-dismiss="modal" type="button")
+            %i.pg-close.fs-14
+          %h3
+            = modal_type_title
+            exportieren
+        .modal-body
+          .row
+            .col-md-12
+              %p
+                = modal_type_title
+                exportieren bereit zum versenden:
+                %strong
+                  %span.modal_stock_count 15
+                  Stück
+              %h4 PDF / CSV Dateien
+              %p Hier können die Dateien als PDF- oder CSV-Dateien heruntergeladen werden
+              = link_to admin_orders_export_type_path(weight_type, 'pdf'), class: 'btn btn-success blue-ebonyclay btn-cons no-margin inline', target: '_blank' do
+                %i.fa.fa-file-pdf-o
+                PDF
+              = link_to admin_orders_export_type_path(weight_type, 'csv'), class: 'btn btn-success blue-ebonyclay btn-cons no-margin inline', target: '_blank' do
+                %i.fa.fa-file-excel-o
+                CSV
+
+        .modal-footer
+          %button.btn.btn-success.btn-cons.no-margin.pull-right.inline(data-dismiss="modal" type="button" onclick="ReadyToShipExport.finish('#{weight_type}')") Alle als Versendet markieren
+          %button#order_confirm_cancel.btn.btn-default.btn-cons.no-margin.pull-left.inline(data-dismiss="modal" type="button") Zurück

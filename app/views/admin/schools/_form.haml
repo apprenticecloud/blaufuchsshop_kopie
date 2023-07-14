@@ -1,0 +1,53 @@
+= render 'form'
+= form_for [:admin, @school] do |f|
+  %h3.page-title
+    Schule
+    %small Details
+  .page-bar
+    %ul.page-breadcrumb
+      %li
+        %i.fa.fa-home
+        %a{:href => "/admin"} Dashboard
+        %i.fa.fa-angle-right
+      %li
+        %a{:href => "/admin/schools"} Schulen
+        %i.fa.fa-angle-right
+      %li
+        %span Details
+    .page-toolbar
+      %button.btn-fit-height.btn.blue{:type => "submit", :style => "border-radius: 0;"}
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Speichern
+      = link_to [:admin, :schools], class: 'btn-fit-height btn default' do
+        %span.md-click-circle{:style => "height: 75px; width: 75px; top: -13.5px; left: -10.5px;"}>
+        Abbrechen
+
+  / BEGIN PAGE CONTENT
+  .row
+    .col-md-12
+      .portlet.light
+        .portlet-body
+          = render 'shared/error_messages', object: @school
+          %h4 Schule
+          .row
+            .col-md-6
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :name, id: 'form_1', class: 'form-control'
+                %label{:for => "form_1"} Name
+
+          %h4 Adresse
+          = f.fields_for :address do |a|
+            .form-body
+              .row
+                .col-md-5
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = a.text_field :street_address, id: 'form_2', class: 'form-control'
+                    %label{:for => "form_2"} Straße und Hausnummer
+                .col-md-3
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = a.text_field :postal_code, id: 'form_3', class: 'form-control'
+                    %label{:for => "form_3"} Postleitzahl
+                .col-md-4
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = a.text_field :address_locality, id: 'form_4', class: 'form-control'
+                    %label{:for => "form_4"} Ort

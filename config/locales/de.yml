@@ -1,0 +1,77 @@
+de:
+  really_delete: 'Das Objekt wird aus allen Datensätzen im gesamten Shop gelöscht. Wirklich löschen?'
+  really_deactivate: 'Wirklich deaktivieren?'
+  really_activate: 'Wirklich aktivieren?'
+  flash_messages:
+    order_something_before_checkout: 'Bitte wählen Sie zuerst etwas aus, bevor Sie zur Kasse gehen.'
+    fill_your_order_details: 'Please, fill your order details'
+    thank_you_for_your_order: 'Thank you for your order!'
+
+  activerecord:
+    models:
+      cart:
+        one: "Bestellung"
+        otherde:
+  really_delete: 'Das Objekt wird aus allen Datensätzen im gesamten Shop gelöscht. Wirklich löschen?'
+  really_deactivate: 'Wirklich deaktivieren?'
+  really_activate: 'Wirklich aktivieren?'
+  flash_messages:
+    order_something_before_checkout: 'Bitte wählen Sie zuerst etwas aus, bevor Sie zur Kasse gehen.'
+    fill_your_order_details: 'Please, fill your order details'
+    thank_you_for_your_order: 'Thank you for your order!'
+
+  activerecord:
+    models:
+      cart:
+        one: "Bestellung"
+        other: "Bestellungen"
+      customer:
+        one: "Kunde"
+        other: "Kunden"
+      user:
+        one: "Benutzer"
+        other: "Benutzer"
+    attributes:
+      school:
+        name: "Name"
+      school/address:
+        street_address: "Straße"
+        postal_code: "Postleitzahl"
+        address_locality: "Ort"
+      user:
+        password: "Passwort"
+        email: "E-Mail"
+      product:
+        title: "Name"
+        subtitle: "Untertitel"
+        description: "Beschreibung"
+        price: "Preis"
+        reduced_price: "Klassenpreis"
+        year: "Jahr"
+      invoice_address:
+        street_address: "Adresse"
+        postal_code: "Postleitzahl"
+        address_locality: "Stadt"
+      order:
+        given_name: "Vorname"
+        family_name: "Nachname"
+        school:
+          one: "Schule"
+          other: "Schulen"
+        recipient: "Klasse (im Bereich Lieferadresse)"
+        terms_and_conditions_accepted: "Liefer- und Zahlungsbedingungen (AGB)"
+        return_policy_read: "Widerrufsbelehrung"
+
+
+    errors:
+      models:
+        order:
+          attributes:
+            terms_and_conditions_accepted:
+              must_agree: 'müssen bestätigt werden'
+            return_policy_read:
+              must_read: 'muss bestätigt werden'
+        product:
+          attributes:
+            base:
+              product_was_ordered: "you can't destroy ordered products"

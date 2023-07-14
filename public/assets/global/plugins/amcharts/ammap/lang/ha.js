@@ -1,0 +1,1 @@
+AmCharts.mapTranslations.gv = {"United Kingdom":"Rywvaneth Unys"}AmCharts.mapTranslations.ha = {"Ghana":"Gaana","Niger":"Nijer","Nigeria":"Nijeriya"}

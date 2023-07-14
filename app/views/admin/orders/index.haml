@@ -1,0 +1,412 @@
+- content_for :page_styles do
+  %link{:href => "/assets/global/plugins/select2/select2.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css", :rel => "stylesheet", :type => "text/css"}/
+  -# %link{:href => "/assets/tables.css", :rel => "stylesheet", :type => "text/css"}/
+  :css
+    tr.deactive td:not(:first-child):not(:last-child):not(:nth-child(2)){
+      text-decoration: line-through;
+    }
+    tr.deactive {
+      opacity: 0.5;
+    }
+
+
+%h3.page-title
+  Bestellungen
+  %small Übersicht
+.page-bar
+  %ul.page-breadcrumb
+    %li
+      %i.fa.fa-home
+      %a{:href => "/admin"} Dashboard
+      %i.fa.fa-angle-right
+    %li
+      %span Bestellungen
+
+/ BEGIN PAGE CONTENT
+= form_tag '/admin/orders/batch', method: :post, id: 'batch_form' do
+  = hidden_field_tag 'export_data_type'
+  = hidden_field_tag 'action_type'
+  = hidden_field_tag 'new_state'
+  .row
+    .col-md-12
+      .portlet.box.red-intense
+        .portlet-title
+          .caption
+            Bestellungen
+        .portlet-body
+          .table-toolbar
+            .row
+              .col-md-6
+                -# .btn-group
+                  %button#sample_editable_1_new.btn.blue-ebonyclay{type: 'submit'}
+                    %i.fa.fa-file
+                    Ausgewählte Bestellungen Drucken
+                .btn-group
+                  %a.btn.blue-ebonyclay.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs Ausgewählte Exportieren
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:SelectedExport.pdf();"} Als PDF
+                    %li
+                      %a{:href => "javascript:SelectedExport.csv();"} Als CSV
+                .btn-group
+                  %a.btn.red.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs "Bereit zum Versenden" Exportieren
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:ReadyToShipExport.low();"} Büchersendungen
+                    %li.divider
+                    %li
+                      %a{:href => "javascript:ReadyToShipExport.high();"} Pakete
+                .btn-group
+                  %a.btn.blue-ebonyclay.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs Ausgewählte Status
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('new');"} Neu
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('ready_to_ship');"} Bereit zum Versenden
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('shipped');"} Versendet
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('completed');"} Fertiggestellt
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('stopped');"} Stop
+          %table#table.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th.table-checkbox
+                  %input.group-checkable{"data-set" => "#table .checkboxes", :type => "checkbox"}/
+                %th
+                  Status
+                %th
+                  Name
+                -# %th
+                  \# Art.
+                %th
+                  Versenden an
+                %th
+                  Datum
+                %th
+                  Schule
+                %th
+                  Aktionen
+            %tbody
+              -# @orders.each do |order|
+                %tr(class="#{order.active? ? '' : 'deactive'}")
+                  %td
+                    = check_box_tag "order_ids[]", order.id, false, class: 'checkboxes'
+                  %td
+                    - if order.state == "new"
+                      %span.label.label-sm.label-danger Neu
+                    - if order.state == "ready_to_ship"
+                      %span.label.label-sm.label-danger(style='background-color:#F3C200;') Bereit zum Versenden
+                    - if order.state == 'shipped'
+                      %span.label.label-sm.label-success Versendet
+                    - if order.state == 'completed'
+                      %span.label.label-sm.label-info Fertiggestellt
+                    - if order.state == 'stopped'
+                      %span.label.label-sm.label-warning ! Stop !
+                  %td
+                    - if order.customer
+                      \##{"%04d" % order.id} von
+                      %b #{order.given_name} #{order.family_name}
+                    - else
+                      \##{"%04d" % order.id} von #{order.given_name} #{order.family_name}
+                    - if !order.invoice_notes.blank?
+                      %br
+                      %a.popovers{"data-container" => "body", "data-content" => "#{order.invoice_notes}", "data-original-title" => "Notiz auf der Rechnung", "data-trigger" => "hover", :href => "javascript:;"}
+                        %span.label.label-sm.label-info
+                          Notiz auf der Rechnung
+                    - if !order.notes.blank?
+                      %br
+                      %a.popovers{"data-container" => "body", "data-content" => "#{order.notes}", "data-original-title" => "Interne Notiz", "data-trigger" => "hover", :href => "javascript:;"}
+                        %span.label.label-sm.label-info
+                          Interne Notiz
+
+                  -# %td
+                    5
+
+                  %td
+                    #{order.recipient}
+                    - if order.deliver_to_school
+                      %br
+                      %b #{order.school.name}
+                    %br
+                    #{order.shipping_address.street_address}
+                    %br
+                    #{order.shipping_address.postal_code} #{order.shipping_address.address_locality}
+                  %td
+                    #{order.created_at.strftime("%d.%m.%Y")}
+                  %td
+                    #{order.school.name}
+                  %td
+                    - if order.active?
+                      = link_to admin_deactivate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_deactivate')} do
+                        Deaktivieren
+                    - else
+                      = link_to admin_activate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_activate')} do
+                        Aktivieren
+                    -# TAKES 1 SECOND TO RENDER:
+                    = link_to "Bearbeiten", [:edit, :admin, order], class: 'btn default btn-xs grey-salsa'
+                    -# = link_to "Löschen", [:admin, order], class: 'btn default btn-xs red-sunglo', method: :delete, data: {confirm: t('really_delete')}
+                    = link_to "Rechnung", [:admin, order, format: 'pdf'], class: 'btn default btn-xs blue-ebonyclay'
+
+                  -# TAKES 10 SECONDS TO RENDER:
+                  -#   = link_to [:edit, :admin, order], class: 'btn default btn-xs grey-salsa' do
+                  -#     %i.fa.fa-edit
+                  -#     Bearbeiten
+                  -#   = link_to [:admin, order], class: 'btn default btn-xs red-sunglo', method: :delete, data: {confirm: t('really_delete')} do
+                  -#     %i.fa.fa-trash-o
+                  -#     Löschen
+                  -#   = link_to [:admin, order, format: 'pdf'], class: 'btn default btn-xs blue-ebonyclay' do
+                  -#     %i.fa.fa-file
+                  -#     Rechnung
+
+%div(style="display: none;")
+  = form_tag admin_orders_export_finish_path, method: :post, id: 'expor_finish_form' do
+    = hidden_field_tag 'weight_type', nil, class: 'form_weight_type'
+
+- content_for :modals do
+  = render partial: 'admin/orders/confirm_export', locals: { modal_id: 'orderLowExport', weight_type: 'low', modal_type_title: 'Büchersendungen' }
+  = render partial: 'admin/orders/confirm_export', locals: { modal_id: 'orderHighExport', weight_type: 'high', modal_type_title: 'Pakete' }
+
+- content_for :page_plugins do
+  / BEGIN PAGE LEVEL PLUGINS
+  %script{:src => "/assets/global/plugins/select2/select2.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js", :type => "text/javascript"}
+  / END PAGE LEVEL PLUGINS
+  :javascript
+    window.unfancy = true
+
+
+- content_for :scripts do
+  = javascript_include_tag 'admin/orders'
+  -# %script{:src => "/assets/tables.js"}
+  :javascript
+    ReadyToShipExport.export_prepare_url = '#{admin_orders_export_prepare_path}';
+
+    jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      TableAdvanced.initOrder();
+    });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   - content_for :page_styles do
+  %link{:href => "/assets/global/plugins/select2/select2.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css", :rel => "stylesheet", :type => "text/css"}/
+  -# %link{:href => "/assets/tables.css", :rel => "stylesheet", :type => "text/css"}/
+  :css
+    tr.deactive td:not(:first-child):not(:last-child):not(:nth-child(2)){
+      text-decoration: line-through;
+    }
+    tr.deactive {
+      opacity: 0.5;
+    }
+
+
+%h3.page-title
+  Bestellungen
+  %small Übersicht
+.page-bar
+  %ul.page-breadcrumb
+    %li
+      %i.fa.fa-home
+      %a{:href => "/admin"} Dashboard
+      %i.fa.fa-angle-right
+    %li
+      %span Bestellungen
+
+/ BEGIN PAGE CONTENT
+= form_tag '/admin/orders/batch', method: :post, id: 'batch_form' do
+  = hidden_field_tag 'export_data_type'
+  = hidden_field_tag 'action_type'
+  = hidden_field_tag 'new_state'
+  .row
+    .col-md-12
+      .portlet.box.red-intense
+        .portlet-title
+          .caption
+            Bestellungen
+        .portlet-body
+          .table-toolbar
+            .row
+              .col-md-6
+                -# .btn-group
+                  %button#sample_editable_1_new.btn.blue-ebonyclay{type: 'submit'}
+                    %i.fa.fa-file
+                    Ausgewählte Bestellungen Drucken
+                .btn-group
+                  %a.btn.blue-ebonyclay.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs Ausgewählte Exportieren
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:SelectedExport.pdf();"} Als PDF
+                    %li
+                      %a{:href => "javascript:SelectedExport.csv();"} Als CSV
+                .btn-group
+                  %a.btn.red.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs "Bereit zum Versenden" Exportieren
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:ReadyToShipExport.low();"} Büchersendungen
+                    %li.divider
+                    %li
+                      %a{:href => "javascript:ReadyToShipExport.high();"} Pakete
+                .btn-group
+                  %a.btn.blue-ebonyclay.btn-outline.btn-circle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                    %i.fa.fa-download
+                    %span.hidden-xs Ausgewählte Status
+                    %i.fa.fa-angle-down
+                  %ul.dropdown-menu.pull-right
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('new');"} Neu
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('ready_to_ship');"} Bereit zum Versenden
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('shipped');"} Versendet
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('completed');"} Fertiggestellt
+                    %li
+                      %a{:href => "javascript:SelectedStatus.change_status('stopped');"} Stop
+          %table#table.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th.table-checkbox
+                  %input.group-checkable{"data-set" => "#table .checkboxes", :type => "checkbox"}/
+                %th
+                  Status
+                %th
+                  Name
+                -# %th
+                  \# Art.
+                %th
+                  Versenden an
+                %th
+                  Datum
+                %th
+                  Schule
+                %th
+                  Aktionen
+            %tbody
+              -# @orders.each do |order|
+                %tr(class="#{order.active? ? '' : 'deactive'}")
+                  %td
+                    = check_box_tag "order_ids[]", order.id, false, class: 'checkboxes'
+                  %td
+                    - if order.state == "new"
+                      %span.label.label-sm.label-danger Neu
+                    - if order.state == "ready_to_ship"
+                      %span.label.label-sm.label-danger(style='background-color:#F3C200;') Bereit zum Versenden
+                    - if order.state == 'shipped'
+                      %span.label.label-sm.label-success Versendet
+                    - if order.state == 'completed'
+                      %span.label.label-sm.label-info Fertiggestellt
+                    - if order.state == 'stopped'
+                      %span.label.label-sm.label-warning ! Stop !
+                  %td
+                    - if order.customer
+                      \##{"%04d" % order.id} von
+                      %b #{order.given_name} #{order.family_name}
+                    - else
+                      \##{"%04d" % order.id} von #{order.given_name} #{order.family_name}
+                    - if !order.invoice_notes.blank?
+                      %br
+                      %a.popovers{"data-container" => "body", "data-content" => "#{order.invoice_notes}", "data-original-title" => "Notiz auf der Rechnung", "data-trigger" => "hover", :href => "javascript:;"}
+                        %span.label.label-sm.label-info
+                          Notiz auf der Rechnung
+                    - if !order.notes.blank?
+                      %br
+                      %a.popovers{"data-container" => "body", "data-content" => "#{order.notes}", "data-original-title" => "Interne Notiz", "data-trigger" => "hover", :href => "javascript:;"}
+                        %span.label.label-sm.label-info
+                          Interne Notiz
+
+                  -# %td
+                    5
+
+                  %td
+                    #{order.recipient}
+                    - if order.deliver_to_school
+                      %br
+                      %b #{order.school.name}
+                    %br
+                    #{order.shipping_address.street_address}
+                    %br
+                    #{order.shipping_address.postal_code} #{order.shipping_address.address_locality}
+                  %td
+                    #{order.created_at.strftime("%d.%m.%Y")}
+                  %td
+                    #{order.school.name}
+                  %td
+                    - if order.active?
+                      = link_to admin_deactivate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_deactivate')} do
+                        Deaktivieren
+                    - else
+                      = link_to admin_activate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_activate')} do
+                        Aktivieren
+                    -# TAKES 1 SECOND TO RENDER:
+                    = link_to "Bearbeiten", [:edit, :admin, order], class: 'btn default btn-xs grey-salsa'
+                    -# = link_to "Löschen", [:admin, order], class: 'btn default btn-xs red-sunglo', method: :delete, data: {confirm: t('really_delete')}
+                    = link_to "Rechnung", [:admin, order, format: 'pdf'], class: 'btn default btn-xs blue-ebonyclay'
+
+                  -# TAKES 10 SECONDS TO RENDER:
+                  -#   = link_to [:edit, :admin, order], class: 'btn default btn-xs grey-salsa' do
+                  -#     %i.fa.fa-edit
+                  -#     Bearbeiten
+                  -#   = link_to [:admin, order], class: 'btn default btn-xs red-sunglo', method: :delete, data: {confirm: t('really_delete')} do
+                  -#     %i.fa.fa-trash-o
+                  -#     Löschen
+                  -#   = link_to [:admin, order, format: 'pdf'], class: 'btn default btn-xs blue-ebonyclay' do
+                  -#     %i.fa.fa-file
+                  -#     Rechnung
+
+%div(style="display: none;")
+  = form_tag admin_orders_export_finish_path, method: :post, id: 'expor_finish_form' do
+    = hidden_field_tag 'weight_type', nil, class: 'form_weight_type'
+
+- content_for :modals do
+  = render partial: 'admin/orders/confirm_export', locals: { modal_id: 'orderLowExport', weight_type: 'low', modal_type_title: 'Büchersendungen' }
+  = render partial: 'admin/orders/confirm_export', locals: { modal_id: 'orderHighExport', weight_type: 'high', modal_type_title: 'Pakete' }
+
+- content_for :page_plugins do
+  / BEGIN PAGE LEVEL PLUGINS
+  %script{:src => "/assets/global/plugins/select2/select2.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js", :type => "text/javascript"}
+  / END PAGE LEVEL PLUGINS
+  :javascript
+    window.unfancy = true
+
+
+- content_for :scripts do
+  = javascript_include_tag 'admin/orders'
+  -# %script{:src => "/assets/tables.js"}
+  :javascript
+    ReadyToShipExport.export_prepare_url = '#{admin_orders_export_prepare_path}';
+
+    jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      TableAdvanced.initOrder();
+    });

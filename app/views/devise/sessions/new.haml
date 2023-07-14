@@ -1,0 +1,59 @@
+.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Login
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-boxes-container
+          #accordion.panel-group.checkout-boxes
+            .panel.panel-default.checkout-box
+
+              .panel-heading
+                %h2.panel-title
+                  %a Login
+
+              .panel-collapse.collapse.content.in
+                .panel-body
+                  .row
+                    .col-md-6
+                      .form-container.no-margin
+                        %h4.title Wiederkehrender Kunde
+                        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+                          .form-group
+                            %label{:for => "user_email"}
+                              E-Mail
+                              %span.astk *
+                            = f.email_field :email, autofocus: true, class: "form-control txt"
+                          .form-group
+                            %label{:for => "user_password"}
+                              Passwort
+                              %span.astk *
+                            = f.password_field :password, autocomplete: "off", class: "form-control txt"
+                          = link_to "Passwort vergesen?", new_password_path(resource_name)
+                          .action
+                            = f.submit "LOGIN", class: "btn btn-normal btn-blue"
+
+
+                    .col-md-6
+                      .form-container
+                        %h4.title Neuer Kunde?
+                        .cnt-form
+                          -# .radio
+                            %label
+                              %input#voucher2.radio{:checked => "checked", :name => "radio", :type => "radio", :value => "student"}/
+                              Ich bin Schüler
+                          -# .radio
+                            %label
+                              %input#voucher1.radio{:name => "radio", :type => "radio", :value => "teacher"}/
+                              Ich bin Lehrer
+                          %p
+                            Registrieren Sie sich als Lehrer um von kostenlosen
+                            Lehrerexemplaren zu profitieren.
+                          .action
+                            = link_to "Registrieren", new_registration_path(resource_name), class: "btn btn-default"

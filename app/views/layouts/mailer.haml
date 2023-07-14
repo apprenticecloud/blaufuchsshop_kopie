@@ -1,0 +1,423 @@
+= yield
+!!! Strict
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Blaufuchs Verlag | Vielen Dank für Ihre Bestellung
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Lato:300,400,700", :rel => "stylesheet", :type => "text/css"}/
+    :css
+      @charset "utf-8";
+          /* CSS Document */
+
+          @font-face {
+      	 font-family: 'Lato', sans-serif;
+          }
+
+          @media screen and (max-width: 768px) and (min-width: 390px) {
+      	    body {
+      		    margin: 0 auto !important;
+      		    width: 600px !important;
+      	    }
+      	    .wrapper_table {
+      		    width: 600px !important;
+      		    margin:0 auto;
+      		    text-align:center;
+      	    }
+      	    .padding {
+      		    width: 20px !important;
+      	    }
+      	    .logo{
+      		    width: 200px !important;
+      	    }
+      	    .navbar{
+      		    width: 400px !important;
+      	    }
+      	    .content{
+      		    width: 600px !important;
+      	    }
+      	    .content_row {
+      		    width: 560px !important;
+      	    }
+      	    .one_third {
+      		    width: 170px !important;
+      		    margin-bottom: 30px;
+      	    }
+      	    .one_third img {
+      		    max-width: 170px !important;
+      	    }
+      	    .one_half {
+      		    width: 270px !important;
+      	    }
+      	    .noresponsive {
+      		    display: none;
+      	    }
+      	    .content_row img {
+      		    max-width: 560px !important;
+      		    height: auto !important;
+      	    }
+      	    .one_half img {
+      			max-width: 270px !important;
+      	    }
+      	    .image_standard {
+      		    width: auto !important;
+      		    height: auto !important;
+      	    }
+      	    .one_quarter img {
+      		    max-width: 136px !important;
+      	    }
+      	    .one_quarter {
+      		    width: 136px !important;
+      	    }
+      	    .address_bar {
+      		    width: 290px !important;
+      	    }
+          }
+
+          @media screen and (max-width: 390px) {
+
+      	    body {
+      		    margin: 0 auto !important;
+      		    width: 320px !important;
+      	    }
+
+      	    table[class="wrapper_table"] {
+      		    width: 320px !important;
+      	    }
+
+      	    td[class="fullwidth_image"] img {
+      		    max-width: 300px !important;
+      		    height: auto !important
+      	    }
+
+      	    td[class="padding"] {
+      		    width: 10px !important;
+      	    }
+
+      	    td[class="content"] {
+      		    width: 320px !important;
+      	    }
+
+      	    td[class="content_row"] {
+      		    width: 300px !important;
+      	    }
+
+      	    td[class="logo"] img {
+      		    margin: 0 auto !important;
+      	    }
+
+      	    td[class="logo"] {
+      		    margin: 0 auto;
+      		    width: 300px !important;
+      		    float: left;
+      		    margin-bottom: 15px;
+      	    }
+
+      	    td[class="navbar"] {
+      		    float: left;
+      		    width: 300px !important;
+      		    margin-bottom: 15px;
+      		    text-align: center !important;
+      	    }
+
+      	    td[class="header_right"] {
+      		    width: 300px !important;
+      		    float: left;
+      		    margin-bottom: 10px;
+      		    text-align: center;
+      	    }
+
+      	    table[class="mobile_centered_table"] {
+      		    margin: 0 auto !important;
+      		    text-align: center !important;
+      	    }
+
+      	    td[class="one_third"] {
+      		    float: left;
+      		    width: 300px !important;
+      		    margin-bottom: 30px;
+      		    text-align: center !important;
+      	    }
+
+      	    td[class="one_third"] img {
+      		    margin: 0 auto;
+      	    }
+
+      	    td[class="one_third"] td[class="noresize"] {
+      		    margin: 0 auto;
+      	    }
+
+      	    td[class="one_third_spacer"] {
+      		    display: none;
+      	    }
+
+      	    td[class="one_half"] {
+      		    float: left;
+      		    width: 300px !important;
+      		    margin-bottom: 20px;
+      		    text-align: center !important;
+      	    }
+
+      	    td[class="one_quarter"] {
+      		    width: 130px !important;
+      		    text-align: center;
+      		    display: block;
+      		    border: 0 !important;
+      		    margin:0 auto !important;
+      	    }
+
+      	    td[class="one_quarter"] img {
+      		    max-width: 130px !important;
+      		    height: auto !important;
+      	    }
+
+      	    td[class="one_half_spacer"] {
+      		    display: none;
+      	    }
+
+      	    td[class="one_half"] img{
+      		    margin: 0 auto;
+      	    }
+
+      	    td[class="text_center"] {
+      		    text-align: center !important;
+      	    }
+      	    td[class="round_social_button"] img{
+      		    width: 45px !important;
+      		    height: auto !important;
+      	    }
+      	    table[id="social_bg"]{
+      		    padding: 0 10px;
+      	    }
+          }
+
+          @media screen and (max-width: 390px) {
+      	    td[class="nomobile"] {
+      		    display: none !important;
+      	    }
+      	    td[class="noresponsive"] {
+      		    display: none;
+      	    }
+      	    td[class="bg_height"]{
+      		    width: 300px !important;
+      		    height: 10px !important
+      	    }
+
+      	    td[class="address_bar"] {
+      		    float: left;
+      		    width: 300px !important;
+      		    margin-bottom: 30px;
+      		    text-align: center !important;
+      	    }
+
+      	    td[class="table_total"] {
+      		    float: left;
+      		    width: 300px !important;
+      		    border: 1px solid #d1d9e0 !important ;
+      		    text-align: center !important;
+      	    }
+      	    .pre_h_space {
+      		    height: 20px !important;
+      	    }
+          }
+
+          @media screen and (max-width: 768px) and (min-width: 390px) {
+      	    .icon img{
+      		    width: auto !important;
+      	    }
+      	    .sidebar{
+      		    display: none;
+      	    }
+      	    .pre_h_space {
+      		    height: 40px !important;
+      	    }
+          }
+  %body{:style => "font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #9b975a; margin: 0 auto; width: 100%; background-repeat: no-repeat; background-color: #dddddd; background-image: url('undefined'); background-size: cover;"}
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td{:align => "center"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.pre_h_space{:height => "100"}
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td.dark_grey_bg{:align => "center", :bgcolor => "#2f2f2f"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "30", :style => "width: 800px;"}
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td.dark_bg{:align => "center", :bgcolor => "#379ADC"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "15", :style => "width: 800px;"}
+                %tr
+                  %td.content{:style => "width: 800px;"}
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tbody
+                        %tr
+                          %td.padding{:style => "width: 50px;"}
+                          %td.content_row{:align => "left", :style => "width: 700px;", :valign => "top"}
+                            %table.mobile_centered_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tbody
+                                %tr
+                                  %td.address_bar{:align => "left", :style => "width: 230px;", :valign => "middle"}
+                                    %table.mobile_centered_table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tbody
+                                        %tr
+                                          %td
+                                            %a{:href => "#", :style => "text-decoration: none;"}
+                                              %img.image_standard{:alt => "", :border => "0", :height => "16", :src => "http://bigbangthemes.net/e_builder/templates/orderinfo/img/ico1.png", :style => "display: block;", :width => "15"}/
+                                          %td{:width => "5"}
+                                          %td{"data-editable" => "", :style => "font-family: 'Lato', sans-serif; color: #e0e0e0;font-size: 14px;"}
+                                            %span.light_text
+                                              Sonnhalde 6
+                                              %br
+                                              88699 Frickingen-Leustetten
+                                  %td.nomobile{:width => "10"}
+                                  %td.one_third{:align => "left", :style => "width: 170px;", :valign => "middle"}
+                                    %table.mobile_centered_table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tbody
+                                        %tr
+                                          %td
+                                            %a{:href => "#", :style => "text-decoration: none;"}
+                                              %img.image_standard{:alt => "", :border => "0", :height => "16", :src => "http://bigbangthemes.net/e_builder/templates/orderinfo/img/ico2.png", :style => "display: block;", :width => "10"}/
+                                          %td{:width => "5"}
+                                          %td{"data-editable" => "", :style => "font-family: 'Lato', sans-serif, sans-serif; color: #e0e0e0;font-size: 14px;"}
+                                            %span.light_text 07554 8335
+                                  %td.nomobile{:width => "10"}
+                                  %td.one_third{:align => "left", :style => "width: 210px;", :valign => "middle"}
+                                    %table.mobile_centered_table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                                      %tbody
+                                        %tr
+                                          %td
+                                            %a{:href => "#", :style => "text-decoration: none;"}
+                                              %img.image_standard{:alt => "", :border => "0", :height => "16", :src => "http://bigbangthemes.net/e_builder/templates/orderinfo/img/ico3.png", :style => "display: block;", :width => "19"}/
+                                          %td{:width => "5"}
+                                          %td{"data-editable" => "", :style => "font-family: 'Lato', sans-serif, sans-serif;; color: #e0e0e0;font-size: 14px;"}
+                                            %a.light_text{:href => "mailto:shop@blaufuchs-verlag.de", :style => "text-decoration: none; color: #e0e0e0;"} shop@blaufuchs-verlag.de
+                                  %td.noresponsive{:align => "left", :style => "width: 170px;", :valign => "middle"}
+                          %td.padding{:style => "width: 50px;"}
+                %tr
+                  %td.content{:height => "15", :style => "width: 800px;"}
+    -# %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td.dark_grey_bg{:align => "center", :bgcolor => "#2f2f2f"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "30", :style => "width: 800px;"}
+    -# %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td.dark_grey_bg{:align => "center", :bgcolor => "#2f2f2f"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:style => "width: 800px;"}
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tbody
+                        %tr
+                          %td.padding{:style => "width: 50px;"}
+                          %td.content_row{:align => "left", :style => "width: 700px;", :valign => "top"}
+                            %table.mobile_centered_table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+                              %tbody
+                                %tr
+                                  %td{:align => "left", :style => "width: 200px;", :valign => "top"}
+                                    %a{:href => "#", :style => "text-decoration: none;"}
+                                      %img{:alt => "", :border => "0", :height => "200", :src => "#{asset_path('/assets/images/logo-p.png', only_path: false)}", :style => "display: block; margin: 0 auto;", :width => "195"}/
+                                  -# %td.one_half{:align => "center", "data-editable" => "", :style => "width: 500px; font-family: 'Lato', sans-serif; font-size: 34px; font-weight: bold; color: #ffffff;", :valign => "top"}
+    -# %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td.padding{:style => "width: 50px;"}
+            %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+              %tbody
+                %tr
+                  %td.dark_grey_bg{:align => "center", :bgcolor => "#2f2f2f"}
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tbody
+                        %tr
+                          %td.content{:height => "30", :style => "width: 800px;"}
+
+
+    = yield
+
+
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td{:align => "center", :bgcolor => "#ffffff"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "100", :style => "width: 800px;"}
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none; background-image: url(http://bigbangthemes.net/e_builder/templates/orderinfo/img/footbg1.png); background-color: rgb(20, 22, 19); background-size: 100%; background-position: 50% 0%; background-repeat: no-repeat;"}
+      %tbody
+        %tr
+          %td{:align => "center"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "30", :style => "width: 800px;"}
+        %tr
+          %td{:align => "center"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:style => "width: 800px;"}
+                    %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                      %tbody
+                        %tr
+                          %td.padding{:style => "width: 50px;"}
+                          %td.content_row{:align => "left", :style => "width: 700px;", :valign => "top"}
+                            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+                              %tbody
+                                %tr
+                                  %td{:height => "30"}
+                                %tr
+                                  %td.light_text{:align => "center", "data-editable" => "", :style => "width: 700px; font-family: 'Lato', sans-serif; font-size: 13px; color: #bec0c2;"}
+
+
+                                    Blaufuchs Verlag
+                                    %br
+                                    Inhaber: Thomas Mangold
+                                    %br
+                                    Sonnhalde 6 | 88699 Frickingen
+                                    %br
+                                    %br
+                                    Telefonnummer: 07554 8335
+                                    %br
+                                    Faxnummer: 07554 8360
+                                    %br
+                                    E-Mail:
+                                    %a.white_text{:href => "mailto:shop@blaufuchs-verlag.de", :style => "text-decoration: none; color: #bec0c2;"} shop@blaufuchs-verlag.de
+                                    %br
+                                    %br
+                                    Umsatzsteuer-Identifikationsnummer: DE 215085051
+                                    %br
+                                    %br
+                                    Copyright © 2015 Blaufuchs Verlag Leustetten. All rights reserved.
+                                    %br
+                                    Made by websites einfach smart
+                                    %br/
+                                    %br/
+                                    = link_to 'Liefer- und Zahlungsbedingungen (AGB)', {controller: "pages", action: "show", page: "agb"}, id: "viewonline", class: "white_text", style: "color: #bec0c2;"
+                                %tr
+                                  %td{:height => "30"}
+                          %td.padding{:style => "width: 50px;"}
+    %table.wrapper_table{:align => "center", :border => "0", :cellpadding => "0", :cellspacing => "0", :style => "width: 800px; max-width: none;"}
+      %tbody
+        %tr
+          %td{:align => "center"}
+            %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+              %tbody
+                %tr
+                  %td.content{:height => "100", :style => "width: 800px;"}

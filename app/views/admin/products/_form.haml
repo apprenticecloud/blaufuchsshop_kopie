@@ -1,0 +1,106 @@
+= render 'form'
+= form_for [:admin, @product] do |f|
+  %h3.page-title
+    Produkt
+    %small Details
+  .page-bar
+    %ul.page-breadcrumb
+      %li
+        %i.fa.fa-home
+        %a{:href => "/admin"} Dashboard
+        %i.fa.fa-angle-right
+      %li
+        %a{:href => "/admin/products"} Produkte
+        %i.fa.fa-angle-right
+      %li
+        %span Details
+    .page-toolbar
+      %button.btn-fit-height.btn.blue{:type => "submit", :style => "border-radius: 0;"}
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Speichern
+      = link_to [:admin, :products], class: 'btn-fit-height btn default' do
+        %span.md-click-circle{:style => "height: 75px; width: 75px; top: -13.5px; left: -10.5px;"}>
+        Abbrechen
+
+  / BEGIN PAGE CONTENT
+  .row
+    .col-md-9
+      .portlet.light
+        .portlet-body
+          = render 'shared/error_messages', object: @product
+          %h4 Produkt
+          .row
+            .col-md-6
+              .form-group.form-md-line-input.form-md-floating-label
+                -# %input#form_control_1.form-control{:type => "text"}/
+                = f.text_field :title, id: 'form_1', class: 'form-control'
+                %label{:for => "form_1"} Name
+            .col-md-6
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :subtitle, id: 'form_2', class: 'form-control'
+                %label{:for => "form_2"} Untertitel
+          .row
+            .col-md-12
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_area :description, style: 'height: 150px', id: 'form_3', class: 'form-control'
+                %label{:for => "form_3"} Beschreibung
+          %h4 Preis
+          .margin-bottom-40
+            .form-body
+              .row
+                .col-md-4
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = f.number_field :price, id: 'form_4', class: 'form-control', step: 0.01
+                    %label{:for => "form_4"} Preis
+                .col-md-4
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = f.number_field :reduced_price, id: 'form_5', class: 'form-control', step: 0.01
+                    %label{:for => "form_5"} Klassenpreis
+                .col-md-4
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = f.number_field :weight, id: 'form_51', class: 'form-control'
+                    %label{:for => "form_51"} Gewicht (G)
+    .col-md-3
+      .portlet.light
+        .portlet-body
+          %h4 Eigenschaften
+          .row
+            .col-md-12
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :year, id: 'form_6', class: 'form-control'
+                %label{:for => "form_6"} Jahr
+
+              .form-group.form-md-radios
+                %label Schüler-/ Lehrerexplar ausblenden
+                .md-checkbox-list
+                  .md-checkbox
+                    = f.check_box :hide_student_edition, id: 'hideStudent', class: 'md-check'
+                    %label{:for => "hideStudent"}
+                      %span.inc
+                      %span.check
+                      %span.box
+                      Schülerexemplar
+                  .md-checkbox
+                    = f.check_box :hide_teacher_edition, id: 'hideTeacher', class: 'md-check'
+                    %label{:for => "hideTeacher"}
+                      %span.inc
+                      %span.check
+                      %span.box
+                      Lehrerexemplar
+
+              .form-group.form-md-checkboxes
+                %label Fach
+                .md-checkbox-list
+                  = f.collection_check_boxes :subject_ids, Subject.all, :id, :name do |b|
+                    .md-checkbox
+                      = b.check_box class: 'md-check'
+                      = b.label do
+                        %span
+                        %span.check
+                        %span.box
+                        = b.text
+          .row
+            .col-md-12
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :image, id: 'form_7', class: 'form-control'
+                %label{:for => "form_control_1"} Produktbild [link]

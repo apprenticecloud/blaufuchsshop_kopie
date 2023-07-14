@@ -1,0 +1,106 @@
+= render 'form'
+- content_for :page_styles do
+  %link{:href => "/assets/global/plugins/select2/select2.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css", :rel => "stylesheet", :type => "text/css"}/
+
+
+%h3.page-title
+  Produkte
+  %small Übersicht
+.page-bar
+  %ul.page-breadcrumb
+    %li
+      %i.fa.fa-home
+      %a{:href => "/admin"} Dashboard
+      %i.fa.fa-angle-right
+    %li
+      %span Produkte
+  .page-toolbar
+    = link_to [:new, :admin, :product], class: 'btn btn-fit-height grey-salt' do
+      Erstellen
+      %i.fa.fa-plus
+
+/ BEGIN PAGE CONTENT
+.row
+  .col-md-12
+    .portlet.box.red-intense
+      .portlet-title
+        .caption
+          Produkte
+        -# .actions
+          .btn-group
+            %a.btn.default{"data-toggle" => "dropdown", :href => "javascript:;"}
+              Columns
+              %i.fa.fa-angle-down
+            #table_column_toggler.dropdown-menu.hold-on-click.dropdown-checkboxes.pull-right
+              %label
+                %input{:checked => "checked", "data-column" => "1", :type => "checkbox"}>/
+                E-Mail
+              %label
+                %input{:checked => "checked", "data-column" => "2", :type => "checkbox"}>/
+                Schule
+              %label
+                %input{:checked => "checked", "data-column" => "3", :type => "checkbox"}>/
+                Rolle
+              %label
+                %input{"data-column" => "4", :type => "checkbox"}>/
+                Adresse
+              %label
+                %input{"data-column" => "5", :type => "checkbox"}>/
+                Postleitzahl
+              %label
+                %input{"data-column" => "6", :type => "checkbox"}>/
+                Ort
+              %label
+                %input{"data-column" => "7", :type => "checkbox"}>/
+                Telefon
+
+      -# .portlet-title
+        .actions
+          %a.btn.btn-circle.btn-icon-only.btn-default.fullscreen{"data-original-title" => "", :href => "javascript:;", :title => ""}
+      .portlet-body
+        %table#table.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th
+                Name
+              %th
+                Preis
+              %th
+                Aktionen
+          %tbody
+            - @products.each do |product|
+              %tr
+                %td
+                  %strong #{product.title}
+                  %br
+                  %small #{product.subtitle}
+                %td
+                  #{number_to_currency product.price}
+                %td
+                  = link_to [:edit, :admin, product], class: 'btn default btn-xs grey-salsa' do
+                    %i.fa.fa-edit
+                    Bearbeiten
+                  = link_to [:admin, product], class: 'btn default btn-xs red-sunglo', method: :delete, data: {confirm: t('really_delete')} do
+                    %i.fa.fa-trash-o
+                    Löschen
+
+- content_for :page_plugins do
+  / BEGIN PAGE LEVEL PLUGINS
+  %script{:src => "/assets/global/plugins/select2/select2.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js", :type => "text/javascript"}
+  / END PAGE LEVEL PLUGINS
+
+- content_for :scripts do
+  :javascript
+    jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      TableAdvanced.init();
+    });

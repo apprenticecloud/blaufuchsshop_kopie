@@ -1,0 +1,211 @@
+- content_for :styles do
+  :css
+    .twitter-typeahead {
+      width: 100%;
+      display: table !important;
+    }
+
+    .twitter-typeahead .form-control {
+      margin: 0 !important;
+    }
+
+    .tt-hint,
+    .tt-input {
+      color: #999;
+      font-size: 14px;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.428571429;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+    .tt-hint[disabled] {
+      background-color: #fff !important;
+    }
+
+
+    .tt-dropdown-menu {
+      min-width: 160px;
+      margin-top: 2px;
+      padding: 5px 0;
+      background-color: #fff;
+      border: 1px solid #ebebeb;
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+      width: 100%;
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+    .tt-dropdown-menu h3 {
+      margin: 5px 0;
+      padding: 6px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-open .tt-dropdown-menu {
+      z-index: 10055 !important;
+    }
+
+    .tt-suggestion {
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 16px;
+- content_for :styles do
+  :css
+    .twitter-typeahead {
+      width: 100%;
+      display: table !important;
+    }
+
+    .twitter-typeahead .form-control {
+      margin: 0 !important;
+    }
+
+    .tt-hint,
+    .tt-input {
+      color: #999;
+      font-size: 14px;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.428571429;
+      width: 100%;
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+
+    .tt-hint[disabled] {
+      background-color: #fff !important;
+    }
+
+
+    .tt-dropdown-menu {
+      min-width: 160px;
+      margin-top: 2px;
+      padding: 5px 0;
+      background-color: #fff;
+      border: 1px solid #ebebeb;
+      -webkit-background-clip: padding-box;
+         -moz-background-clip: padding;
+              background-clip: padding-box;
+      width: 100%;
+      overflow-y: auto;
+      max-height: 250px;
+    }
+
+    .tt-dropdown-menu h3 {
+      margin: 5px 0;
+      padding: 6px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 1px solid #eee;
+    }
+
+    .modal-open .tt-dropdown-menu {
+      z-index: 10055 !important;
+    }
+
+    .tt-suggestion {
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .tt-suggestion.tt-cursor {
+      cursor: pointer;
+      background-color: #eee;
+
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Registrieren
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-boxes-container
+          #accordion.panel-group.checkout-boxes
+            .panel.panel-default.checkout-box{"style" => 'overflow:visible;'}
+
+              .panel-heading
+                %h2.panel-title
+                  %a Registrieren
+
+              .panel-collapse.collapse.content.in
+                .panel-body
+                  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+                    = devise_error_messages!
+                    .row
+                      .col-md-6
+                        .form-container.no-margin
+                          %h4.title Neuer Kunde
+                          .form-group
+                            %label{:for => "name"}
+                              E-Mail
+                              %span.astk *
+                            = f.email_field :email, autofocus: true, class: "form-control txt"
+                          .form-group
+                            %label{:for => "pw"}
+                              Passwort
+                              %span.astk *
+                            = f.password_field :password, autocomplete: "off", class: "form-control txt"
+                          .form-group
+                            %label{:for => "pw"}
+                              Passwort wiederholen
+                              %span.astk *
+                            = f.password_field :password_confirmation, autocomplete: "off", class: "form-control txt"
+                          .form-group
+                            %label{:for => "school"}
+                              Schule
+                              %span.astk *
+                            - f.object.build_customer unless f.object.customer
+                            = f.fields_for :customer do |customer_form|
+                              = customer_form.hidden_field :school_id
+                              - if customer_form.object.school_id
+                                :javascript
+                                  window.INITIAL_SCHOOL = #{raw School.selectedSchool(customer_form.object.school_id).to_json.gsub("</", "<\\/")};
+                            #scrollable-dropdown-menu
+                              %input.form-control.txt{:name => "school"}
+                      .col-md-6
+                        .form-container
+                          %h4.title Registrieren als
+                          .radio
+                            %label
+                              = f.radio_button :role, 'student', checked: true, class: 'radio'
+                              Ich bin Schüler
+                          .radio
+                            %label
+                              = f.radio_button :role, 'teacher', class: 'radio'
+                              Ich bin Lehrer
+                          %p
+                            Registrieren Sie sich als Lehrer um von kostenlosen
+                            Lehrerexemplaren zu profitieren.
+                          .action
+                            = f.submit "Registrieren", class: "btn btn-normal btn-blue"
+- content_for :scripts do
+  %script{:src => "/assets/js/typeahead.jquery.min.js"}
+  %script{:src => "/assets/js/lodash.underscore.min.js"}
+  %script{:src => "/assets/js/typeahead.js"}
+
+  :coffee
+    schools = #{raw School.json.to_json.gsub("</", "<\\/")}
+    $(TypeaheadInit('school', schools, 'user_customer_attributes_school_id'))

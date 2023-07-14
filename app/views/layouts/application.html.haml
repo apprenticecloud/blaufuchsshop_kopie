@@ -1,0 +1,302 @@
+%html{:lang => "de"}
+
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    = csrf_meta_tags
+    %link{:href => "/favicon.png", :rel => "shortcut icon"}/
+    %title Blaufuchs Verlag | Ganz schön ausgefuchst
+
+    / Bootstrap core CSS
+    %link{:href => "/assets/css/bootstrap.min.css", :rel => "stylesheet"}/
+
+    / Customizable CSS
+    %link{:href => "/assets/css/owl.carousel.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/owl.transitions.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/rateit.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/jquery.bxslider.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/jquery-ui-1.10.4.custom.min.css", :rel => "stylesheet"}/
+    -# %link{:href => "/assets/css/lightbox.css", :rel => "stylesheet"}/
+    %link{:href => "/assets/css/animate.min.css", :rel => "stylesheet"}/
+
+    / Fonts
+    %link{:href => "//fonts.googleapis.com/css?family=Roboto:400,500,700,900,300,100", :rel => "stylesheet", :type => "text/css"}/
+    / Icons/Glyphs
+    %link{:href => "/assets/css/font-awesome.min.css", :rel => "stylesheet"}/
+
+    / Main CSS
+    %link{:href => "/assets/css/main.css", :rel => "stylesheet"}/
+    / Default Preset Color
+    %link{:href => "/assets/css/blue.css", :rel => "stylesheet"}/
+    :css
+      .breadcrumb ul {
+        float: right;
+      }
+      .breadcrumb ul li {
+        white-space: nowrap;
+      }
+      header.header-style-2 .header-nav .navbar-nav > li > a {
+        color: #434343;
+      }
+      header.header-style-2 .header-nav .navbar {
+        background: white;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+
+      .product-list .product-info .product-stats .price .actual, .product .product-info .price .actual {
+        text-decoration: none;
+      }
+
+      .product-list .product-info input.txt.txt-qty {
+        width: 60px;
+        height: 30px;
+        border: 1px solid #f2f2f2;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+        padding: 5px 10px;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        color: #379adc;
+        line-height: 18px;
+      }
+
+      .product-list .product-info .label {
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: 300;
+        color: #666666;
+        line-height: 30px;
+        padding: 0;
+      }
+
+      .myaccount-container .addresses-lists ul.myaccount-link-list li a {
+        background: #d9534f;
+      }
+      .myaccount-container .addresses-lists ul.myaccount-link-list li a:hover {
+        background: #E48784;
+      }
+      .myaccount-container .addresses-lists ul.myaccount-link-list li a i {
+        background: #AE423F;
+      }
+      .sub-total .price, .price .price{
+        white-space: nowrap;
+      }
+      .details .product-desc .description {
+        white-space: normal;
+      }
+      .price .actual {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: light;
+        color: #acacac;
+        line-height: 36px;
+      }
+      .body-container .cart-container table tbody tr td.details {
+        padding: 15px 15px;
+      }
+      .description a {
+        cursor: pointer;
+      }
+      footer .info-boxes .info-box {
+        cursor: default;
+      }
+    = yield :styles
+    %script{:src => "/assets/js/modernizr.js", :type => "text/javascript"}
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-64593816-5', 'auto');
+      ga('send', 'pageview');
+
+    /[if lt IE 9]
+      <script src="/assets/js/html5shiv.js"></script>
+      <script src="/assets/js/respond.min.js"></script>
+
+  %body.cnt-home
+    / ============================================== HEADER ==============================================
+    %header.header-style-1.header-style-2
+      / ============================================== TOP MENU ==============================================
+      .header-top.animate-dropdown
+        .container
+          .header-top-inner
+            .cnt-account(style='float:right;')
+              %ul.list-unstyled.list-inline
+                - if user_signed_in?
+                  %li
+                    = link_to('Logout', destroy_user_session_path, :method => :delete)
+                - else
+                  %li
+                    = link_to('Login', new_user_session_path)
+                  %li
+                    = link_to('Registrieren', new_user_registration_path)
+
+
+            .clearfix
+
+      / ============================================== NAVBAR ==============================================
+      .header-nav.animate-dropdown.home
+        .yamm.navbar.navbar-default{:role => "navigation"}
+          .container-class.container
+            .navbar-header
+              %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+              %a.navbar-brand{:href => "/"}
+                .logo
+                  %img{src: "/assets/images/logo-p.png", style:"margin-top: -6px; max-width: 178px;"}
+              .clearfix
+            .nav-bg-class.no-nav-bg
+              .navbar-collapse.collapse
+                .nav-outer
+                  %ul.nav.navbar-nav
+
+                    %li.yamm-fw
+                      %a{href: "/"} Shop
+
+                    %li.yamm-fw
+                      %a{href: "/contact"} Kontakt
+
+                  - if @admin
+                    %a.btn.btn-danger(style='margin: 17px 0 10px 0;' href='/admin') Zum Admin Bereich
+                  .clearfix
+      / ============================================== NAVBAR : END ==============================================
+
+    - if !flash.empty?
+      .container(style='padding-top: 100px;')
+        - flash.each do |name, msg|
+          = content_tag :div, msg, class: "alert alert-#{name == 'alert' ? 'danger' : 'success'}" if msg.is_a?(String)
+
+    = yield :content
+    = yield
+
+
+    / ============================================== FOOTER ==============================================
+    %footer(style="margin-top: 70px;")
+      .info-boxes.wow.fadeInUp
+        .container
+          .info-boxes-inner
+            .row
+              .col-md-4
+                .info-box
+                  .row
+                    .col-xs-2
+                      %span.fa-stack.fa-lg
+                        %i.fa.fa-circle.fa-stack-2x
+                        %i.fa.fa-truck.fa-stack-1x.fa-inverse
+                    .col-xs-10
+                      %h4 Kostenlose Lieferung
+                      %h6 ohne Mindestbestellwert.
+              / .col
+              .col-md-4
+                .info-box
+                  .row
+                    .col-xs-2
+                      %span.fa-stack.fa-lg
+                        %i.fa.fa-circle.fa-stack-2x
+                        %i.fa.fa-money.fa-stack-1x.fa-inverse
+                    .col-xs-10
+                      %h4 Zahlung auf Rechnung
+                      %h6 Bequem per Rechnung bezahlen.
+              / .col
+              .col-md-4
+                .info-box
+                  .row
+                    .col-xs-2
+                      %span.fa-stack.fa-lg
+                        %i.fa.fa-circle.fa-stack-2x
+                        %i.fa.fa-phone.fa-stack-1x.fa-inverse
+                    .col-xs-10
+                      %h4 Bei Fragen erreichbar
+                      %h6 Telefon: 07554 8335
+
+      / ============================================== INFO BOXES : END ==============================================
+      .links-social
+        .container-class.container
+          .links-social-inner
+            .link-groups{style: "border-right: none;"}
+              .links
+                .row
+                  .col-md-3
+                    %h3.title Shop
+                    %ul
+                      %li
+                        %a{:href => "/"} Shop
+                      %li
+                        %a{:href => "/contact"} Kontakt
+                      - if user_signed_in?
+                        %li
+                          = link_to('Logout', destroy_user_session_path, :method => :delete)
+                      - else
+                        %li
+                          = link_to('Login', new_user_session_path)
+                        %li
+                          = link_to('Registrieren', new_user_registration_path)
+                  .col-md-3
+                    %h3.title Rechtliches
+                    %ul
+                      %li
+                        %a{:href => "/pages/agb"} AGB
+                      %li
+                        %a{:href => "/pages/bestellvorgang"} Bestellvorgang
+                      %li
+                        %a{:href => "/pages/versandkosten"} Versandkosten & Lieferung
+                      %li
+                        %a{:href => "/pages/widerruf"} Widerruf
+                      %li
+                        %a{:href => "/pages/zahlungsarten"} Zahlungsarten
+                      %li
+                        %a{:href => "/pages/impressum"} Impressum
+                      %li
+                        %a{:href => "/pages/privacy"} Datenschutz
+                  .col-md-3
+                    %h3.title Bestellvorgang
+                    %ul
+                      %li
+                        %a{:href => "/checkout"} Kasse
+
+      .copyright
+        ©
+        %a{:href => "/"} Blaufuchs Verlag
+        &nbsp;| ALL RIGHTS RESERVED
+        &nbsp;| MADE BY
+        %a{:href => "https://www.penguin.digital", :target => "blank"} Penguin Digital
+
+    -# %script{:src => "/assets/js/jquery.min.js", :type => "text/javascript"}
+
+    = javascript_include_tag 'application'
+    %script{:src => "/assets/js/jquery-ui.custom.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/bootstrap.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/bootstrap-hover-dropdown.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/owl.carousel.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/echo.min.js", :type => "text/javascript"}
+
+    %script{:src => "/assets/js/jquery.rateit.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/jquery.jcarousel.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/jquery.easing.1.3.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/jquery.bxslider.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/jquery.fitvids.js", :type => "text/javascript"}
+
+    -# %script{:src => "/assets/js/lightbox.min.js", :type => "text/javascript"}
+
+    -# %script{:src => "/assets/accounting.min.js"}
+
+    %script{:src => "/assets/js/wow.min.js", :type => "text/javascript"}
+    %script{:src => "/assets/js/scripts.js", :type => "text/javascript"}
+    :javascript
+      echo.init({
+        offset: 100,
+        throttle: 250,
+        unload: false
+      });
+    = yield :scripts

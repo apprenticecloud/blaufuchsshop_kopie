@@ -1,0 +1,12 @@
+- if order.active?
+  = link_to admin_deactivate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_deactivate')} do
+    Deaktivieren
+- else
+  = link_to admin_activate- if order.active?
+  = link_to admin_deactivate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_deactivate')} do
+    Deaktivieren
+- else
+  = link_to admin_activate_order_path(order), class: 'btn default btn-xs red-sunglo', method: :put, data: {confirm: t('really_activate')} do
+    Aktivieren
+= link_to "Bearbeiten", [:edit, :admin, order], class: 'btn default btn-xs grey-salsa'
+= link_to "Rechnung", [:admin, order, format: 'pdf'], class: 'btn default btn-xs blue-ebonyclay'

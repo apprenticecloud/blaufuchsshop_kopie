@@ -1,0 +1,103 @@
+.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.acti.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Übersicht
+
+  .cart-container
+    .container
+      %h1 Übersicht
+      %p Bitte prüfen Sie alle Daten. Schließen Sie den Vorgang dann ab.
+      %h2 Ihre Daten
+      .panel-body
+        .form-container
+          .addresses.clearfix
+
+            .row
+              .col-xs-12.col-sm-6
+                %ul#address_invoice.list-unstyled.address.item.box
+                  %li.address_title
+                    %h3.page-subheading Ihre Rechnungsadresse
+                  %li.address_firstname.address_lastname #{@order.given_name} #{@order.family_name}
+                  %li.address_address1 #{@order.invoice_address.street_address}
+                  %li.address_postcode.address_city #{@order.invoice_address.postal_code} #{@order.invoice_address.address_locality}
+              - if @order.deliver_to_school
+                .col-xs-12.col-sm-6
+                  %ul#address_school.list-unstyled.address.alternate_item.box
+                    %li.address_title
+                      %h3.page-subheading Lieferung an Ihre Schuladresse
+                    %li.address_firstname.address_lastname #{@order.recipient}
+                    %li.address_company #{@order.school.name}
+                    %li.address_address1 #{@order.school_address.street_address}
+                    %li.address_postcode.address_city #{@order.school_address.postal_code} #{@order.school_address.address_locality}
+
+  .cart-container
+    .container
+      %h2 Ihre Bestellung
+      .table-container.table-responsive
+        %table.table.table-bordered
+
+          %thead
+            %tr
+              %th.details Produkt
+              %th.qty Menge
+              %th.price Preis
+              %th.sub-total Summe
+
+          %tbody
+            - sum = 0
+            - @order.cart.positions.each do |position|
+              %tr
+                %td.details
+                  .product-desc
+                    %h3.name
+                      #{position.product.title}
+                      %small #{position.product.subtitle}
+                      -if position.teacher_edition?
+                        %br
+                        %small Lehrerexemplar
+                %td.qty
+                  .product-desc
+                    %h3.name.txt-qty #{position.amount}
+                %td
+                  %span #{number_to_currency position.unit_price}
+                %td
+                  - sum += position.unit_price * position.amount
+                  %span #{number_to_currency(position.unit_price * position.amount)}
+
+            %tr
+              %td.action{:colspan => "4"}
+                .action-left
+                  = link_to 'ZURÜCK', checkout_path, class: 'btn btn-blue btn-normal'
+
+      .cart-boxes
+        .row
+          .col-md-4.col-md-offset-8
+            .cart-box
+              .form-container.no-margin
+                .sub-total
+                  %span.label.col-xs-6 Enthaltene MwSt. (#{Constant.vat_rate}%)
+                  %span.value.col-xs-5.col-xs-offset-1 #{number_to_currency(sum - (sum / (1 + (Constant.vat_rate.to_f/100.0))))}
+                  .clearfix
+                / /.sub-total
+                .grand-total
+                  %span.label.col-xs-6 Summe
+                  %span.value.col-xs-5.col-xs-offset-1 #{number_to_currency sum}
+                  .clearfix
+                / /.grand-total
+                .text-right.m-b-15
+                  = button_to 'Kaufen', orders_path, method: :post, class: 'btn btn-normal btn-blue'
+                %p.text.text-right
+                  Versandkostenfrei.
+                  %br
+                  Hinweis: Versandkosten und Mehrwertsteuer sind in der obigen Übersicht vollständig ausgewiesen.

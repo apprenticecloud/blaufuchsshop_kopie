@@ -1,0 +1,60 @@
+= render 'form'
+= form_for [:admin, @user] do |f|
+  %h3.page-title
+    Benutzer
+    %small Details
+  .page-bar
+    %ul.page-breadcrumb
+      %li
+        %i.fa.fa-home
+        %a{:href => "/admin"} Dashboard
+        %i.fa.fa-angle-right
+      %li
+        %a{:href => "/admin/users"} Benutzer
+        %i.fa.fa-angle-right
+      %li
+        %span Details
+    .page-toolbar
+      %button.btn-fit-height.btn.blue{:type => "submit", :style => "border-radius: 0;"}
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Speichern
+      = link_to [:admin, :users], class: 'btn-fit-height btn default' do
+        %span.md-click-circle{:style => "height: 75px; width: 75px; top: -13.5px; left: -10.5px;"}>
+        Abbrechen
+
+  / BEGIN PAGE CONTENT
+  .row
+    .col-md-12
+      .portlet.light
+        .portlet-title
+          .caption.caption-md
+            %i.icon-bar-chart.theme-font.hide
+            %span.caption-subject.font-blue-madison.bold.uppercase Benutzer
+            - if !@user.new_record?
+              %span.caption-helper ##{@user.id}
+        .portlet-body
+          = render 'shared/error_messages', object: @user
+          .form-body
+            .row
+              .col-md-5
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.text_field :name, id: 'form_1', class: 'form-control'
+                  %label{:for => "form_1"} Name
+              .col-md-5
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.text_field :email, id: 'form_2', class: 'form-control'
+                  %label{:for => "form_2"} E-Mail
+              .col-md-2
+                .form-group.form-md-line-input.form-md-floating-label.has-info
+                  = f.select(:role, [], {}, id: 'form_5', class: 'form-control') do
+                    = options_for_select([['Druckerei', 'printery'], ['Admin', 'admin']], @user.role)
+                  %label{:for => "form_5"} Status
+            .row
+              .col-md-5
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.password_field :password, autocomplete: "off", id: 'form_3', class: "form-control"
+                  %label{:for => "form_3"} Passwort
+              .col-md-5
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.password_field :password_confirmation, autocomplete: "off", id: 'form_4', class: "form-control"
+                  %label{:for => "form_3"} Passwort wiederholen

@@ -1,0 +1,56 @@
+.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Passwort ändern
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-bo.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Passwort ändern
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-boxes-container
+          #accordion.panel-group.checkout-boxes
+            .panel.panel-default.checkout-box
+
+              .panel-heading
+                %h2.panel-title
+                  %a Passwort ändern
+
+              .panel-collapse.collapse.content.in
+                .panel-body
+                  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+                    = devise_error_messages!
+                    = f.hidden_field :reset_password_token
+                    .row
+                      .col-md-6
+                        .form-container.no-margin
+                          %h4.title Passwort
+                          .form-group
+                            %label{:for => "pw"}
+                              Passwort
+                              %span.astk *
+                            = f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control txt"
+                          .form-group
+                            %label{:for => "pw"}
+                              Passwort wiederholen
+                              %span.astk *
+                            = f.password_field :password_confirmation, autocomplete: "off", class: "form-control txt"
+                      .col-md-6
+                        %p
+                          Hier können sie sich selbst ein neues Passwort geben.
+                          .action
+                            = f.submit "Passwort ändern", class: "btn btn-normal btn-blue"

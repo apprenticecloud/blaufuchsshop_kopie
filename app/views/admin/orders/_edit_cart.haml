@@ -1,0 +1,77 @@
+-# @order.cart.positions.each do |position|
+= f.fields_for :positions do |position_form|
+  - position = position_form.object
+  - if position.persisted?
+    %tr
+      -# %td
+      %td
+        %a{:href => "javascript:;"}
+          %strong #{position.product.title}
+          -if position.teacher_edition?
+            %small.font-red Lehrerexemplar
+          %br
+          %small #{position.product.subtitle}
+      %td(style='white-space: nowrap;')
+        #{number_to_currency position.unit_price}
+      %td
+        = position_form.number_field :amount, class: "form-control input-small", style: "width: 70px !important;"
+      %td(style='white-space: nowrap;')
+        #{number_to_currency(position.unit_price * position.amount)}
+      %td
+        = position_form.check_box :_destroy
+  - else
+    %tr
+    -# %td
+    %td
+      = position_form.select :product_variant_id,
+                        options_for_select(ProductVariant.options_for_select(ordered_products >= Constant.klassensatz), selected_key: position_form.object.product_variant_id), {}, class: 'form-control'
+
+      -# .portlet-input.input-inline
+        %select.bs-select.form-control(data-live-search="true" data-size="8")
+          %option{:value => "default"} Artikel Hinzufügen
+          %optgroup(label="Arikel auswählen")
+            %option{:value => "AL", "data-subtext" => "Aufgabe 1-4"} Mathe
+            %option{:value => "WY", "data-subtext" => "inkl. mp3"} Englisch
+    %td
+
+    %td
+      = position_form.number_field :amount, class: "form-control input-sm-# @order.cart.positions.each do |position|
+= f.fields_for :positions do |position_form|
+  - position = position_form.object
+  - if position.persisted?
+    %tr
+      -# %td
+      %td
+        %a{:href => "javascript:;"}
+          %strong #{position.product.title}
+          -if position.teacher_edition?
+            %small.font-red Lehrerexemplar
+          %br
+          %small #{position.product.subtitle}
+      %td(style='white-space: nowrap;')
+        #{number_to_currency position.unit_price}
+      %td
+        = position_form.number_field :amount, class: "form-control input-small", style: "width: 70px !important;"
+      %td(style='white-space: nowrap;')
+        #{number_to_currency(position.unit_price * position.amount)}
+      %td
+        = position_form.check_box :_destroy
+  - else
+    %tr
+    -# %td
+    %td
+      = position_form.select :product_variant_id,
+                        options_for_select(ProductVariant.options_for_select(ordered_products >= Constant.klassensatz), selected_key: position_form.object.product_variant_id), {}, class: 'form-control'
+
+      -# .portlet-input.input-inline
+        %select.bs-select.form-control(data-live-search="true" data-size="8")
+          %option{:value => "default"} Artikel Hinzufügen
+          %optgroup(label="Arikel auswählen")
+            %option{:value => "AL", "data-subtext" => "Aufgabe 1-4"} Mathe
+            %option{:value => "WY", "data-subtext" => "inkl. mp3"} Englisch
+    %td
+
+    %td
+      = position_form.number_field :amount, class: "form-control input-small", style: "width: 70px !important;"
+    %td
+    %td

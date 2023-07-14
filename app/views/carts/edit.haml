@@ -1,0 +1,290 @@
+.body-container
+
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "#"} Home
+          %li
+            %a{:href => "#"} Shop
+
+  .search-container
+    .container
+      .search-result-facet
+        .row
+          .col-md-12
+            %img.img-responsive{src: "/assets/images/flyer.jpg", style:"display: table-caption; margin: 0 auto; margin-bottom: 30px;"}
+
+
+          / ============================================== SIDEBAR ==============================================
+          .col-md-3
+            -# .facets-container
+              .facet-box
+                %h2 Filtern nach Fach
+                %ul.list-unstyled.list-no-dot
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Mathe
+                        %span.count.col-xs-3 (3)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Englisch
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Bio
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Technik
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+
+            .facets-container
+              %a(href='/Blaufuchsverlag_Bestellliste.pdf')
+                .facet-box
+                  .wide-banner.cnt-strip
+                    .image
+                      %img{:alt => "", "data-echo" => "/assets/images/bestellliste.png", :src => "/assets/images/blank.gif"}/
+                    .strip
+                      .strip-inner
+                        %h5 Bestellungen Ihrer Klasse ermitteln
+      .body-container
+
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "#"} Home
+          %li
+            %a{:href => "#"} Shop
+
+  .search-container
+    .container
+      .search-result-facet
+        .row
+          .col-md-12
+            %img.img-responsive{src: "/assets/images/flyer.jpg", style:"display: table-caption; margin: 0 auto; margin-bottom: 30px;"}
+
+
+          / ============================================== SIDEBAR ==============================================
+          .col-md-3
+            -# .facets-container
+              .facet-box
+                %h2 Filtern nach Fach
+                %ul.list-unstyled.list-no-dot
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Mathe
+                        %span.count.col-xs-3 (3)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Englisch
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Bio
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+                  %li
+                    %label.filter-label
+                      %input.checkbox{:type => "checkbox", :value => "1"}/
+                      %span.cnt
+                        %span.key.col-xs-9 Technik
+                        %span.count.col-xs-3 (1)
+                        %span.clearfix
+                    .clearfix
+
+            .facets-container
+              %a(href='/Blaufuchsverlag_Bestellliste.pdf')
+                .facet-box
+                  .wide-banner.cnt-strip
+                    .image
+                      %img{:alt => "", "data-echo" => "/assets/images/bestellliste.png", :src => "/assets/images/blank.gif"}/
+                    .strip
+                      .strip-inner
+                        %h5 Bestellungen Ihrer Klasse ermitteln
+                        %h3 Bestelliste downloaden
+            .facets-container.m-t-30
+              .facet-box
+                %h2.lined
+                  %span Lehrerbereich
+                %p.info-title
+                  Registrieren Sie sich als Lehrer
+                  %br
+                  Profitieren Sie von unseren kostenlosen Lehrerexemplaren, schnelle Lieferung und Zahlung auf Rechnung
+                = link_to('Jetzt registrieren', new_user_registration_path, class: 'btn btn-info btn-block')
+
+          / ============================================== CONTENT ==============================================
+          .col-md-9
+            .cart-container
+              .table-container.table-responsive#products
+                %table.table.table-bordered
+
+                  %thead
+                    %tr
+                      %th.details Details
+                      %th.qty Menge
+                      - if @teacher || @admin
+                        %th.qty Lehrerexemplar
+                      %th.price Preis
+                      %th.sub-total Summe
+
+                  %tbody
+                    = form_for @cart, url: {action: :update}, method: :put do |f|
+                      - @products.each do |product|
+                        = hidden_field_tag :proceed_to_checkout, value = "0"
+                        %tr.table-product
+                          %td.details
+                            .product-desc
+                              %h3.name
+                                #{product.title}
+                                %br
+                                %small #{product.subtitle}
+                              .description
+                                %a{"data-target" => "#pmodal-#{product.id}", "data-toggle" => "modal"}
+                                  Produktbeschreibung
+                          %td.qty
+                            - unless product.hide_student_edition
+                              = f.fields_for :positions, position(product) do |fields|
+                                = fields.hidden_field :product_variant_id
+                                = fields.number_field :amount, min: 0, step: 1, class: "product-input"
+                          - if @teacher || @admin
+                            %td.qty
+                              - unless product.hide_teacher_edition
+                                = f.fields_for :positions, teacher_position(product) do |fields|
+                                  = fields.hidden_field :product_variant_id
+                                  = fields.number_field :amount, min: 0, step: 1
+                          %td.price(data-price="#{product.price}" data-reduced-price="#{product.reduced_price}")
+                            %span.price #{number_to_currency product.price}
+                            .price
+                              %span.actual #{number_to_currency product.reduced_price} ab #{Constant.klassensatz} Exemplaren gesamt
+                          %td.sub-total
+                            %span.price
+
+                      %tr
+                        %td.action{:colspan => "6"}
+                          %p.pull-right
+                            Preise inkl. #{Constant.vat_rate}% MwSt. | versandkostenfrei | Lieferzeit: Sofort lieferbar
+                          .clearfix
+                          .action-right
+                            = f.submit 'WARENKORB SPEICHERN', class: 'btn btn-blue btn-normal'
+
+
+              .cart-boxes
+                .row
+                  .col-md-6.col-md-offset-6
+                    .cart-box
+                      .form-container.no-margin
+                        .sub-total(data-vat-rate="#{Constant.vat_rate}")
+                          %span.label.col-xs-6 Enthaltene MwSt. (#{Constant.vat_rate}%)
+                          %span.value.col-xs-5.col-xs-offset-1
+                          .clearfix
+                        / /.sub-total
+                        .grand-total
+                          %span.label.col-xs-6 Summe
+                          %span.value.col-xs-5.col-xs-offset-1
+                          .clearfix
+                        / /.grand-total
+                        .text-right.m-b-15
+                          %button.btn.btn-normal.btn-blue#checkout-btn ZUR KASSE GEHEN
+                        %p.text.text-right
+                          Hinweis: Versandkosten und Mehrwertsteuer sind in der obigen Übersicht vollständig ausgewiesen.
+
+
+- @products.each do |product|
+  .modal(id="pmodal-#{product.id}")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h4.modal-title
+            #{product.title}
+            %br
+            %small #{product.subtitle}
+        .modal-body
+          .row
+            .col-sm-6
+              .image
+                %img.img-responsive{:src => product.image}/
+            .col-sm-6
+              %p #{product.description}
+
+- content_for :scripts do
+  :javascript
+    var klassensatz = #{Constant.klassensatz}
+    var vat_rate = #{Constant.vat_rate}
+
+  :coffee
+    accounting.settings = {
+    	currency: {
+    		symbol: "€",
+    		format: "%v %s",
+    		decimal: ",",
+    		thousand: ".",
+    		precision: 2
+    	},
+    	number: {
+    		precision : 0,
+    		thousand: ".",
+    		decimal : ","
+    	}
+    }
+    eur = (price)->
+      accounting.formatMoney(price)
+
+    total_qty = ->
+      sum = 0
+      $('td.qty .product-input').each ->
+        sum += +this.value
+      sum
+
+    price_selector = ->
+      if total_qty() < klassensatz
+        return 'price'
+      else
+        return 'reduced-price'
+
+    recalculate = ->
+      sum = 0
+      $('#products tr.table-product').each (index) ->
+        $this = $(this)
+        qtyInput = $this.find('td.qty .product-input')
+        if qtyInput.length
+          price = $this.find('td.qty .product-input').val() * $this.find('td.price').data(price_selector())
+          $this.find('td.sub-total span.price').text(eur(price))
+          sum += price
+      $('.sub-total span.value').text(eur(sum - (sum / (1+vat_rate/100) )))
+      $('.grand-total span.value').text(eur(sum))
+
+    $(recalculate)
+    $('td.qty .product-input').keyup recalculate
+    $('td.qty .product-input').click recalculate

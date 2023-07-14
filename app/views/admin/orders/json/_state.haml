@@ -1,0 +1,11 @@
+#{order.school.name}
+- if order.state == "new"
+  %span.label.label-sm.label-danger Neu
+- if order.state == "ready_to_ship"
+  %span.label.label-sm.label-danger(style='background-color:#F3C200;') Bereit zum Versenden
+- if order.state == 'shipped'
+  %span.label.label-sm.label-success Versendet
+- if order.state == 'completed'
+  %span.label.label-sm.label-info Fertiggestellt
+- if order.state == 'stopped'
+  %span.label.label-sm.label-warning ! Stop !

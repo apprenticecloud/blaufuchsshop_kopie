@@ -1,0 +1,324 @@
+- content_for :page_styles do
+  %link{:href => "/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/select2/select2.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/bootstrap-select/bootstrap-select.min.css", :rel => "stylesheet", :type => "text/css"}/
+
+= form_for [:admin, @order] do |f|
+  %h3.page-title
+    Bestellung
+    %small Details
+  .page-bar
+    %ul.page-breadcrumb
+      %li
+        %i.fa.fa-home
+        %a{:href => "/admin"} Dashboard
+        %i.fa.fa-angle-right
+      %li
+        %a{:href => "/admin/orders"} Bestellungen
+        %i.fa.fa-angle-right
+      %li
+        %span Details
+    .page-toolbar
+      = link_to [:admin, @order, format: 'pdf'], class: 'btn-fit-height btn blue-ebonyclay', style: "border-radius: 0;" do
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Drucken
+      %button.btn-fit-height.btn.blue{:type => "submit", :style => "border-radius: 0;"}
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Speichern
+      %a.btn-fit-height.btn.default(href="/admin/orders")
+        %span.md-click-circle{:style => "height: 75px; width: 75px; top: -13.5px; left: -10.5px;"}>
+        Abbrechen
+
+  - unless @order.active?
+    .row
+      .col-md-12
+        .panel.panel-danger(style='margin-bottom:50px;')
+          .panel-he- content_for :page_styles do
+  %link{:href => "/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/select2/select2.css", :rel => "stylesheet", :type => "text/css"}/
+  %link{:href => "/assets/global/plugins/bootstrap-select/bootstrap-select.min.css", :rel => "stylesheet", :type => "text/css"}/
+
+= form_for [:admin, @order] do |f|
+  %h3.page-title
+    Bestellung
+    %small Details
+  .page-bar
+    %ul.page-breadcrumb
+      %li
+        %i.fa.fa-home
+        %a{:href => "/admin"} Dashboard
+        %i.fa.fa-angle-right
+      %li
+        %a{:href => "/admin/orders"} Bestellungen
+        %i.fa.fa-angle-right
+      %li
+        %span Details
+    .page-toolbar
+      = link_to [:admin, @order, format: 'pdf'], class: 'btn-fit-height btn blue-ebonyclay', style: "border-radius: 0;" do
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Drucken
+      %button.btn-fit-height.btn.blue{:type => "submit", :style => "border-radius: 0;"}
+        %span.md-click-circle{:style => "height: 74px; width: 74px; top: -28px; left: 10px;"}>
+        Speichern
+      %a.btn-fit-height.btn.default(href="/admin/orders")
+        %span.md-click-circle{:style => "height: 75px; width: 75px; top: -13.5px; left: -10.5px;"}>
+        Abbrechen
+
+  - unless @order.active?
+    .row
+      .col-md-12
+        .panel.panel-danger(style='margin-bottom:50px;')
+          .panel-heading
+            %h3.panel-title Bestellung deaktiviert
+          .panel-body
+            Diese Bestellung ist deaktiviert.
+            %br
+            Gehen Sie in die Bestellübersicht um sie zu aktivieren.
+
+  / BEGIN PAGE CONTENT
+  .row
+    .col-md-9
+      .row
+        .col-md-12
+          .portlet.light
+            .portlet-title
+              .caption.caption-md
+                %i.icon-bar-chart.theme-font.hide
+                %span.caption-subject.font-blue-madison.bold.uppercase Bestellung
+                %span.caption-helper ##{@order.id}
+            .portlet-body
+              = render 'shared/error_messages', object: @order
+              .row
+                .col-md-6
+                  .form-group.form-md-line-input.form-md-floating-label(style='padding-top: 0;')
+                    %label Kunde
+                    #form_control_1.form-control.form-control-static
+                      - if @order.customer
+                        #{@order.customer.given_name} #{@order.customer.family_name}
+                        %br
+                        %small #{@order.customer.user.email}
+                      - else
+                        kein Kunde
+                .col-md-6
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = f.select :school_id, School.options_for_select, {}, class: 'form-control'
+                    -# %input#form_control_2.form-control{:type => "text"}/
+                    %label{:for => "form_control_2"} Schule
+              .row
+                .col-md-12
+                  .form-group.form-md-line-input.form-md-floating-label
+                    = f.text_area :invoice_notes, class: 'form-control', id: 'form_3', style: 'height: 100px;'
+                    %label{:for => "form_3"} Notiz auf der Rechnung
+      .row
+        .col-md-6
+          .portlet.red-intense.box
+            .portlet-title
+              .caption
+                Rechnungsdetails
+            .portlet-body
+              = f.fields_for :invoice_address do |a|
+
+                -# %label E-Mail
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.text_field :email, class: 'form-control', id: 'form_8'
+                  %label{:for => "form_8"} E-Mail
+                -# %label Telefon
+                .form-group.form-md-line-input.form-md-floating-label
+                  = f.text_field :telephone, class: 'form-control', id: 'form_81'
+                  %label{:for => "form_81"} Telefon
+
+                %label Adresse
+
+                .row
+                  .col-md-6
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = f.text_field :given_name, class: 'form-control', id: 'form_9'
+                      %label{:for => "form_9"} Vorname
+                  .col-md-6
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = f.text_field :family_name, class: 'form-control', id: 'form_10'
+                      %label{:for => "form_10"} Nachname
+                .form-group.form-md-line-input.form-md-floating-label
+                  = a.text_field :street_address, class: 'form-control', id: 'form_11'
+                  %label{:for => "form_11"} Straße
+                .row
+                  .col-md-5
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = a.text_field :postal_code, class: 'form-control', id: 'form_12'
+                      %label{:for => "form_12"} Postleitzahl
+                  .col-md-7
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = a.text_field :address_locality, class: 'form-control', id: 'form_13'
+                      %label{:for => "form_13"} Ort
+        .col-md-6
+          .portlet.red-intense.box
+            .portlet-title
+              .caption
+                Versanddetails
+            .portlet-body
+              = f.fields_for :school_address do |b|
+                .form-group.form-md-radios
+                  %label Versenden an
+                  .md-checkbox-list
+                    .md-checkbox
+                      = f.check_box :deliver_to_school, id: 'deliverSchool', class: 'md-check'
+                      %label{:for => "deliverSchool"}
+                        %span.inc
+                        %span.check
+                        %span.box
+                        An Schule senden?
+
+                %label Adresse
+                .form-group.form-md-line-input.form-md-floating-label
+                  -# %input#form_control_1.form-control{:type => "text"}/
+                  = f.text_field :recipient, class: 'form-control', id: 'form_15_1'
+                  %label{:for => "form_15_1"} Fachbereich, Klasse, Klassenlehrer, etc.
+                .form-group.form-md-line-input.form-md-floating-label
+                  = b.text_field :street_address, class: 'form-control', id: 'form_15'
+                  %label{:for => "form_15"} Straße
+                .row
+                  .col-md-5
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = b.text_field :postal_code, class: 'form-control', id: 'form_16'
+                      %label{:for => "form_16"} Postleitzahl
+                  .col-md-7
+                    .form-group.form-md-line-input.form-md-floating-label
+                      = b.text_field :address_locality, class: 'form-control', id: 'form_17'
+                      %label{:for => "form_17"} Ort
+      .row
+        .col-md-12.col-sm-12
+          .portlet.light
+            .portlet-title
+              .caption.caption-md
+                %i.icon-bar-chart.theme-font.hide
+                %span.caption-subject.font-blue-madison.bold.uppercase Positionen
+            .portlet-body
+              .table-responsive
+                %table.table.table-hover.table-bordered.table-striped
+                  %thead
+                    %tr
+                      -# %th Position
+                      %th Produkt
+                      %th Preis
+                      %th Menge
+                      %th Gesamt
+                      %th Löschen
+                  %tbody
+                    - sum = 0
+                    - @order.cart.positions.each do |position|
+                      - if position.unit_price
+                        - sum += (position.unit_price * position.amount)
+                    - if !@order.extra_price.blank?
+                      - sum += @order.extra_price
+
+                    = f.fields_for :cart do |cart_form|
+                      = render partial: 'edit_cart', locals: { f: cart_form, ordered_products: @order.cart.number_of_ordered_products + 1}
+              .table-responsive
+                %table.table.table-hover.table-bordered.table-striped
+                  %thead
+                    %tr
+                      -# %th Position
+                      %th Individuelle Rechnungszeile (Rabatt, ...)
+                      %th(style= "width: 70px;") Preis
+                  %tbody
+                    %tr
+                      %td
+                        = f.text_field :extra_position, class: 'form-control input-small', style: "width: 100% !important;"
+                      %td
+                        = f.number_field :extra_price, class: "form-control input-small pull-right", style: "width: 70px !important;", step: 0.01
+
+              .row
+                .col-md-6.col-md-offset-6
+                  .well
+                    .row.static-info.align-reverse
+                      .col-md-8.name
+                        Enthaltene MwSt. (#{Constant.vat_rate}%)
+                      .col-md-3.value
+                        #{number_to_currency(sum - (sum / (1 + (Constant.vat_rate.to_f/100.0))))}
+                    .row.static-info.align-reverse
+                      .col-md-8.name
+                        Summe
+                      .col-md-3.value
+                        #{number_to_currency sum}
+
+    .col-md-3
+      .portlet.light
+        .portlet-title
+          .caption.caption-md
+            %i.icon-bar-chart.theme-font.hide
+            %span.caption-subject.font-blue-madison.bold.uppercase Details
+        .portlet-body
+          .row
+            .col-md-12
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_area :notes, class: 'form-control', id: 'form_31', style: 'height: 100px;'
+                %label{:for => "form_31"} Interne Notiz
+              .form-group.form-md-line-input.form-md-floating-label
+                #form_4.form-control.form-control-static
+                  #{@order.created_at.strftime("%d.%m.%Y")}
+                %label{:for => "form_4"} Bestelldatum
+              .form-group.form-md-line-input.form-md-floating-label.has-info
+                = f.select :state,
+                  [ ['Neu', 'new'], ['Bereit zum Versenden', 'ready_to_ship'], ['Versendet', 'shipped'], ['Fertiggestellt', 'completed'], ['Stop', 'stopped'] ],
+                  {}, class: 'form-control', id: 'form_5'
+                %label{:for => "form_5"} Status
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :tracking_number, class: 'form-control', id: 'form_6'
+                %label{:for => "form_6"} TrackingID
+              .form-group.form-md-line-input.form-md-floating-label
+                = f.text_field :shipping_date, :value => date_mdY(@order.shipping_date), class: 'form-control date-picker', id: 'form_7'
+                %label{for: 'form_7'} Versanddatum
+
+
+
+
+- content_for :page_plugins do
+  %script{:src => "/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.de.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/select2/select2.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/bootstrap-select/bootstrap-select.min.js", :type => "text/javascript"}
+  %script{:src => "/assets/global/plugins/bootstrap-select/i18n/defaults-de_DE.min.js", :type => "text/javascript"}
+
+
+- content_for :scripts do
+  :javascript
+    jQuery(document).ready(function() {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      $('.bs-select').selectpicker({
+          iconBase: 'fa',
+          tickIcon: 'fa-check',
+      });
+    });
+
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        format: 'dd.mm.yyyy',
+        orientation: "left",
+        autoclose: true,
+        language: 'de'
+      });
+    }
+    var handleInput = function(el) {
+        if (el.val() != "") {
+            el.addClass('edited');
+        } else {
+            el.removeClass('edited');
+        }
+    }
+
+    $('.date-picker').datepicker()
+      .on('changeDate', function(e){
+        handleInput($(this));
+    });
+
+  :coffee
+    # prefil date if date is empty and tracking code is changed.
+    tmp = 0
+    $('#form_6').on 'input', (e) ->
+      unless $('#form_7').val()
+        $('#form_7').datepicker('update', new Date());
+        tmp = 1
+        handleInput($('#form_7'));
+      unless $(this).val()
+        $('#form_7').datepicker('update', '') if tmp == 1

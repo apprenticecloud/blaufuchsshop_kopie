@@ -1,0 +1,102 @@
+.body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Passwort vergessen
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-boxes-container
+          #accordion.panel-group.checkout-boxes
+            .panel.panel-default.checkout-box
+
+              .panel-heading
+                %h2.panel-title
+                  %a Passwort vergessen
+
+              .panel-collapse.collapse.content.in
+                .panel-body
+                  = devise_error_messages!
+                  .row
+
+                    .col-md-6
+                      .form-container
+                        %h4.title Neuer Kunde
+                        .cnt-form
+                          .radio
+                            %label
+                              %input#voucher1.radio{:checked => "checked", :name => "voucher", :type => "radio", :value => "git"}/
+                              Ich bin Lehrer
+                          .radio
+                            %label
+                              %input#voucher2.radio{:name => "voucher", :type => "radio", :value => "estimate"}/
+                              Ich bin Schüler
+                          %p
+                            Registrieren Sie sich als Lehrer um von kostenlosen
+                            Lehrerexemplaren zu profitieren. Bitte verwenden Sie die
+                            E-Mail-Adresse Ihrer Schule.
+                          .action
+                            = link_to "Registrieren", new_registration_path(resource_name), class: "btn btn-normal btn-blue", style: "text-decoration: none; color: white;"
+
+                    .col-md-6
+                      .form-container.no-margin
+       .body-container
+  .breadcrumb
+    .container
+      .breadcrumb-inner
+        %ul.list-inline.list-unstyled
+          %li
+            %a{:href => "/"} Home
+          %li.active Passwort vergessen
+
+  .checkout-container
+    .container
+      .row
+        .col-md-9.checkout-boxes-container
+          #accordion.panel-group.checkout-boxes
+            .panel.panel-default.checkout-box
+
+              .panel-heading
+                %h2.panel-title
+                  %a Passwort vergessen
+
+              .panel-collapse.collapse.content.in
+                .panel-body
+                  = devise_error_messages!
+                  .row
+
+                    .col-md-6
+                      .form-container
+                        %h4.title Neuer Kunde
+                        .cnt-form
+                          .radio
+                            %label
+                              %input#voucher1.radio{:checked => "checked", :name => "voucher", :type => "radio", :value => "git"}/
+                              Ich bin Lehrer
+                          .radio
+                            %label
+                              %input#voucher2.radio{:name => "voucher", :type => "radio", :value => "estimate"}/
+                              Ich bin Schüler
+                          %p
+                            Registrieren Sie sich als Lehrer um von kostenlosen
+                            Lehrerexemplaren zu profitieren. Bitte verwenden Sie die
+                            E-Mail-Adresse Ihrer Schule.
+                          .action
+                            = link_to "Registrieren", new_registration_path(resource_name), class: "btn btn-normal btn-blue", style: "text-decoration: none; color: white;"
+
+                    .col-md-6
+                      .form-container.no-margin
+                        %h4.title Passwort vergessen
+                        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+                          .form-group
+                            %label{:for => "user_email"}
+                              E-Mail
+                              %span.astk *
+                            = f.email_field :email, autofocus: true, class: "form-control txt"
+                          = link_to " Zurück zum Login!", new_session_path(resource_name)
+                          .action
+                            = f.submit "Passwort zurücksetzen", class: "btn btn-normal btn-blue"

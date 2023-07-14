@@ -1,0 +1,16 @@
+#{order.created_at.strftime("%d.%m.%Y")}
+- if order.customer
+  \##{"%04d" % order.id} von
+  %b #{order.given_name} #{order.family_name}
+- else
+  \##{"%04d" % order.id} von #{order.given_name} #{order.family_name}
+- if !order.invoice_notes.blank?
+  %br
+  %a.popovers{"data-container" => "body", "data-content" => "#{order.invoice_notes}", "data-original-title" => "Notiz auf der Rechnung", "data-trigger" => "hover", :href => "javascript:;"}
+    %span.label.label-sm.label-info
+      Notiz auf der Rechnung
+- if !order.notes.blank?
+  %br
+  %a.popovers{"data-container" => "body", "data-content" => "#{order.notes}", "data-original-title" => "Interne Notiz", "data-trigger" => "hover", :href => "javascript:;"}
+    %span.label.label-sm.label-info
+      Interne Notiz
